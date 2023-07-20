@@ -30,6 +30,21 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 
+    <style>
+        .banner-container {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            /* 다른 스타일링을 위한 속성들도 추가할 수 있습니다. */
+        }
+
+        .banner-container img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -47,7 +62,7 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>화면창</h3>
+                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>전참시</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -55,15 +70,15 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">가나다</h6>
+                        <h6 class="mb-0">전참시</h6>
 
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>대시보드</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>통계</a>
-                    <a href="table.html" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>뉴스</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>게시판</a>
+                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>통계</a>
+                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>뉴스</a>
+                    <a href="table.html" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>게시판</a>
                 </div>
             </nav>
         </div>
@@ -89,7 +104,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">가나다</span>
+                            <span class="d-none d-lg-inline-flex">전참시</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="myprofile.html" class="dropdown-item">마이페이지</a>
@@ -138,6 +153,12 @@
         
             </table>
         </div>
+
+        <div class="banner-container">
+            <a href="https://your_donation_link.com">
+              <img src="your_banner_image.png" alt="후원 창배너">
+            </a>
+          </div>
 
 
 

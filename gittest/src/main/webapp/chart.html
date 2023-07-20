@@ -30,74 +30,20 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 
-    <title>후원 페이지</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+       .banner-container {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            /* 다른 스타일링을 위한 속성들도 추가할 수 있습니다. */
         }
 
-        .donation-page {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        .donation-form {
-            margin-bottom: 20px;
-        }
-
-        .donation-form label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .donation-form input[type="text"],
-        .donation-form input[type="email"],
-        .donation-form input[type="number"],
-        .donation-form select,
-        .donation-form textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .donation-form textarea {
-            resize: vertical;
-        }
-
-        .donation-form input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .donation-message {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .donation-message p {
-            font-weight: bold;
-        }
-
-        .donation-banner {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .donation-banner img {
+        .banner-container img {
             max-width: 100%;
+            height: auto;
         }
-    </style>
+          </style>
 </head>
 
 <body>
@@ -115,7 +61,7 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>화면창</h3>
+                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>전참시</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -123,15 +69,15 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">가나다</h6>
+                        <h6 class="mb-0">전참시</h6>
 
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>대시보드</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>통계</a>
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>뉴스</a>
-                    <a href="chart.html" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>게시판</a>
+                    <a href="chart.html" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>통계</a>
+                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>뉴스</a>
+                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>게시판</a>
                 </div>
             </nav>
         </div>
@@ -153,59 +99,89 @@
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        
+                       
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">가나다</span>
+                            <span class="d-none d-lg-inline-flex">전참시</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="myprofile.html" class="dropdown-item">마이페이지</a>
-                            
-                            <a href="signup.html" class="dropdown-item">로그아웃</a>
+                            <a href="myprofile.html" class="dropdown-item">마이프로필</a>
+                           <a href="signup.html" class="dropdown-item">로그아웃</a>
                         </div>
                     </div>
                 </div>
             </nav>
             <!-- Navbar End -->
 
-            <div class="donation-page">
-                <h1>후원 페이지</h1>
-        
-                <form class="donation-form">
-                    <label for="name">이름:</label>
-                    <input type="text" id="name" name="name" required>
-        
-                    <label for="email">이메일:</label>
-                    <input type="email" id="email" name="email" required>
-        
-                    <label for="amount">후원 금액:</label>
-                    <select id="amount" name="amount" required>
-                        <option value="100,000,000">100,000,000</option>
-                        <option value="200,000,000">200,000,000</option>
-                        <option value="300,000,000">300,000,000</option>
-                        <option value="400,000,000">400,000,000</option>
-                    </select>
-        
-                    <label for="message">메시지:</label>
-                    <textarea id="message" name="message" rows="4" cols="50"></textarea>
-        
-                    <input type="submit" value="후원하기">
-                </form>
-        
-                <div class="donation-message">
-                    <p>감사합니다! 후원해주셔서 대단히 감사합니다.</p>
+
+            <!-- Chart Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4"></h6>
+                            <canvas id="line-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4"></h6>
+                            <canvas id="salse-revenue"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4"></h6>
+                            <canvas id="bar-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4"></h6>
+                            <canvas id="worldwide-sales"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4"></h6>
+                            <canvas id="pie-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4"></h6>
+                            <canvas id="doughnut-chart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!-- Chart End -->
 
-            <div class="donation-banner">
-                <a href="https://example.com/donation">
-                    <img src="donation-banner.jpg" alt="후원 배너">
-                </a>
+
+            <!-- Footer Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-secondary rounded-top p-4">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
+                            <a href="#"></a>
+                        </div>
+                        <div class="col-12 col-sm-6 text-center text-sm-end">
+                           
+                           <a href="https://htmlcodex.com"></a>
+                            <br><a href="https://themewagon.com" target="_blank"></a>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
            
+        </div>
+
+        <div class="banner-container">
+            <a href="https://your_donation_link.com">
+              <img src="your_banner_image.png" alt="후원 창배너">
+            </a>
+          </div>
 
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
