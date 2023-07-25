@@ -22,6 +22,7 @@ function toggleIframe() {
     } else {
         iframeContainer.style.display = "block";
         iframeContainer2.style.display = "none"; // iframe을 표시합니다.
+		imgContainer.style.display = "none"
     }
     isIframeVisible = !isIframeVisible;
 }
@@ -41,9 +42,29 @@ function toggleIframe2() {
     } else {
         iframeContainer2.style.display = "block";
         iframeContainer.style.display = "none"; // iframe을 표시합니다.
+		imgContainer.style.display = "none"
     }
     isIframeVisible2 = !isIframeVisible2;
 }
 // 버튼 클릭 시 toggleIframe 함수 호출
 keybutton.addEventListener('click', toggleIframe2);
+
     
+// 워드클라우드
+var imgContainer = document.getElementById('imgContainer');
+var wordButton = document.getElementById('wordButton');
+var isImageVisible = false; // 기본적으로 이미지를 숨깁니다.
+
+function toggleImage() {
+    if (isImageVisible) {
+        imgContainer.style.display = "none"; // 이미지를 숨깁니다.
+    } else {
+        imgContainer.style.display = "block"; // 이미지를 표시합니다.
+        iframeContainer.style.display = "none"; // iframe1 숨김
+        iframeContainer2.style.display = "none"; // iframe2 숨김
+    }
+    isImageVisible = !isImageVisible;
+}
+
+// 버튼 클릭 시 toggleImage 함수 호출
+wordButton.addEventListener('click', toggleImage);
