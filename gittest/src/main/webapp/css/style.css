@@ -1388,4 +1388,15 @@ a:focus {
 .footer_section p a {
   color: inherit;
 }
+
+#newsButton {
+  background-color: #c5f9d7;
+  border: none;
+  font-weight: bold;
+}
+#keyButton {
+  background-color: #f7d486;
+  border: none;
+  font-weight: bold;
+}
 /*# sourceMappingURL=style.css.map */
