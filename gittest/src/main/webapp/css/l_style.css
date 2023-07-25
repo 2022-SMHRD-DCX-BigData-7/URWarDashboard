@@ -14,7 +14,7 @@ html {
 
 body {
   font-size: 1.6rem;
-  font-family: "PT Sans", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   color: #505260;
   background-color: white;
 }
@@ -29,7 +29,7 @@ img {
 }
 
 input, textarea {
-  font-family: "PT Sans", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 1.6rem;
 }
 
