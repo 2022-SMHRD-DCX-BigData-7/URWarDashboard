@@ -1,10 +1,20 @@
+<%@page import="com.smhrd.domain.News"%>
+<%@page import="java.util.List"%>
+<%@page import="com.smhrd.domain.NewsDAO"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
-
+<%
+	NewsDAO dao = new NewsDAO();
+	List<News> newsList = dao.getAll();
+	pageContext.setAttribute("newsList",newsList);
+	
+%>
 <head>
   <!-- Basic -->
+  
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!-- Mobile Metas -->
@@ -207,23 +217,47 @@
 
 
   <!-- about section -->
-	<div>
-    여기에 뉴스 리스트 만들 예정<br>
-    여기에 뉴스 리스트 만들 예정<br>
-    여기에 뉴스 리스트 만들 예정<br>
-    여기에 뉴스 리스트 만들 예정<br>
-    여기에 뉴스 리스트 만들 예정<br>
-    여기에 뉴스 리스트 만들 예정<br>
-    여기에 뉴스 리스트 만들 예정<br>
-    여기에 뉴스 리스트 만들 예정<br>
-    여기에 뉴스 리스트 만들 예정<br>
-    여기에 뉴스 리스트 만들 예정<br>
-    여기에 뉴스 리스트 만들 예정<br>
-    여기에 뉴스 리스트 만들 예정<br>
-
-    여기에 뉴스 리스트 만들 예정<br>
-    여기에 뉴스 리스트 만들 예정<br>
-  </div>
+	<div class="container w-75 mt-5 mx-auto">
+		<h2>뉴스 목록</h2>
+		<hr>
+		<ul class="list-group">
+			<c:forEach var="news" items="${newsList}" varStatus="status">
+				<li class="list-group-item list-group-item-action
+					d-flex justify-content-between align-items-center">
+				<a href="news.nhn?action=getNews&NEWS_SEQ=${news.NEWS_SEQ}" Class=
+				"text-decoration-none"> [${news.NEWS_SEQ},${news.NEWS_PRESS}] ${news.NEWS_TITLE}, ${news.NEWS_AT}]</a>
+				</li> 
+			</c:forEach>
+		</ul>
+		
+		<hr>
+		<c:if test="${error != null}">
+			<div class="alert alert-danger alert-dismissible fade show mt-3">
+				에러 발생: ${error}
+				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+			</div>
+		</c:if>
+		<button class="btn btn-outline-info mb-3" type="button" data-bs-toggle="collapse"
+		data-bs-target="#addForm" aria-expanded="false" aria-controls="addForm">뉴스 등록</button>
+		<div class="collapse" id="addForm">
+			<div class="card card-body">
+				<form method="post" action="/jwbook/news.nhn?action=addNews"
+				enctype="multipart/form-data">
+					<label class="form-label">제목</label>
+					<input type="text" name="NEWS_TITLE" class="form-control">
+					<label class="form-label">언론사</label>
+					<input type="text" name="NEWS_PRESS" class="form-control">
+					<label class="form-label">기자</label>
+					<input type="text" name="NEWS_REPORTER" class="form-control">
+					<label class="form-label">날짜</label>
+					<input type="text" name="NEWS_AT" class="form-control">
+					<label class="form-label">기사 내용</label>
+					<textarea cols="50" rows="5" name="NEWS_CONTENT" class="form-control"></textarea>
+					<button type="submit" class="btn btn-success mt-3">저장</button>
+				</form>
+			</div>
+		</div>
+	</div>
 
 
           <!-- 뉴스 통계 시작 -->

@@ -1,81 +1,58 @@
 package com.smhrd.domain;
 
 public class News {
-	private int seq;
-	private String title;
-	private String content;
-	private String press;
-	private String at;
-	private String reporter;
-	private String link;
+	private int NEWS_SEQ;
+	private String NEWS_TITLE;
+	private String NEWS_CONTENT;
+	private String NEWS_PRESS;
+	private String NEWS_AT;
+	private String NEWS_REPORTER;
+	private String NEWS_LINK;
 	//생성자
-	public News(int seq, String title, String content, String press, String at, String reporter, String link) {
-		super();
-		this.seq = seq;
-		this.title = title;
-		this.content = content;
-		this.press = press;
-		this.at = at;
-		this.reporter = reporter;
-		this.link = link;
+	public int getNEWS_SEQ() {
+		return NEWS_SEQ;
 	}
-	
-	// getter,setter
-	public int getSeq() {
-		return seq;
+	public void setNEWS_SEQ(int nEWS_SEQ) {
+		NEWS_SEQ = nEWS_SEQ;
 	}
-	public void setSeq(int seq) {
-		this.seq = seq;
+	public String getNEWS_TITLE() {
+		return NEWS_TITLE;
 	}
-	public String getTitle() {
-		return title;
+	public void setNEWS_TITLE(String nEWS_TITLE) {
+		NEWS_TITLE = nEWS_TITLE;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public String getNEWS_CONTENT() {
+		return NEWS_CONTENT;
 	}
-	public String getContent() {
-		return content;
+	public void setNEWS_CONTENT(String nEWS_CONTENT) {
+		NEWS_CONTENT = nEWS_CONTENT;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public String getNEWS_PRESS() {
+		return NEWS_PRESS;
 	}
-	public String getPress() {
-		return press;
+	public void setNEWS_PRESS(String nEWS_PRESS) {
+		NEWS_PRESS = nEWS_PRESS;
 	}
-	public void setPress(String press) {
-		this.press = press;
+	public String getNEWS_AT() {
+		return NEWS_AT;
 	}
-	public String getAt() {
-		return at;
+	public void setNEWS_AT(String nEWS_AT) {
+		NEWS_AT = nEWS_AT;
 	}
-	public void setAt(String at) {
-		this.at = at;
+	public String getNEWS_REPORTER() {
+		return NEWS_REPORTER;
 	}
-	public String getReporter() {
-		return reporter;
+	public void setNEWS_REPORTER(String nEWS_REPORTER) {
+		NEWS_REPORTER = nEWS_REPORTER;
 	}
-	public void setReporter(String reporter) {
-		this.reporter = reporter;
+	public String getNEWS_LINK() {
+		return NEWS_LINK;
 	}
-	public String getLink() {
-		return link;
+	public void setNEWS_LINK(String nEWS_LINK) {
+		NEWS_LINK = nEWS_LINK;
 	}
-	public void setLink(String link) {
-		this.link = link;
-	}
-	
-	
 
 	
-
-
-
-
-
-
-
-
-
 
 
 }
