@@ -62,7 +62,7 @@ public class NewsDAO {
 		Connection conn = open();
 		List<News> newsList = new ArrayList<>();
 		
-		String sql = "select NEWS_SEQ,NEWS_TITLE,NEWS_AT,NEWS_PRESS from TB_NEWS";
+		String sql = "select NEWS_SEQ,NEWS_TITLE,NEWS_AT,NEWS_PRESS from TB_NEWS ORDER BY NEWS_SEQ ASC";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null; 
 		
@@ -110,7 +110,7 @@ public class NewsDAO {
 	public News getNews(int NEWS_SEQ) throws SQLException {
 	    Connection conn = open();
 	    News n = new News();
-	    String sql = "SELECT NEWS_SEQ, NEWS_TITLE, NEWS_AT, NEWS_PRESS FROM TB_NEWS WHERE NEWS_SEQ=?";
+	    String sql = "SELECT NEWS_SEQ, NEWS_TITLE, NEWS_AT, NEWS_PRESS FROM TB_NEWS ORDER BY NEWS_SEQ ASC WHERE NEWS_SEQ=?";
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 
