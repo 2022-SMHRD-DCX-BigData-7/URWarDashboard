@@ -224,13 +224,14 @@
 			<c:forEach var="news" items="${newsList}" varStatus="status">
 				<li class="list-group-item list-group-item-action
 					d-flex justify-content-between align-items-center">
-				<a href="news.nhn?action=getNews&NEWS_SEQ=${news.NEWS_SEQ}" Class=
-				"text-decoration-none"> [${news.NEWS_SEQ},${news.NEWS_PRESS}] ${news.NEWS_TITLE}, ${news.NEWS_AT}]</a>
+					<a href="news.nhn?action=getNews&NEWS_SEQ=${news.NEWS_SEQ}" Class=
+					"text-decoration-none"> [${news.NEWS_SEQ},${news.NEWS_PRESS}] ${news.NEWS_TITLE}, ${news.NEWS_AT}]</a>
 				</li> 
 			</c:forEach>
 		</ul>
 		
 		<hr>
+		
 		<c:if test="${error != null}">
 			<div class="alert alert-danger alert-dismissible fade show mt-3">
 				에러 발생: ${error}

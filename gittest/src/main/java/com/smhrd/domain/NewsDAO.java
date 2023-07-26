@@ -110,48 +110,51 @@ public class NewsDAO {
 	public News getNews(int NEWS_SEQ) throws SQLException {
 	    Connection conn = open();
 	    News n = new News();
-	    String sql = "SELECT NEWS_SEQ, NEWS_TITLE, NEWS_AT, NEWS_PRESS FROM TB_NEWS ORDER BY NEWS_SEQ ASC WHERE NEWS_SEQ=?";
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
+	    String sql = "SELECT NEWS_SEQ, NEWS_TITLE, NEWS_CONTENT, NEWS_PRESS, NEWS_AT, NEWS_REPORTER, NEWS_LINK  FROM TB_NEWS WHERE NEWS_SEQ=?";
+	    PreparedStatement pstmt = conn.prepareStatement(sql);
+	    pstmt.setInt(1, NEWS_SEQ);
+	    ResultSet rs = pstmt.executeQuery();
 
 	    try {
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, NEWS_SEQ);
-	        rs = pstmt.executeQuery();
-
 	        if (rs.next()) {
 	            n.setNEWS_SEQ(rs.getInt("NEWS_SEQ"));
 	            n.setNEWS_TITLE(rs.getString("NEWS_TITLE"));
-	            n.setNEWS_AT(rs.getString("NEWS_AT"));
+	            n.setNEWS_CONTENT(rs.getString("NEWS_CONTENT"));
 	            n.setNEWS_PRESS(rs.getString("NEWS_PRESS"));
+	            n.setNEWS_AT(rs.getString("NEWS_AT"));
+	            n.setNEWS_REPORTER(rs.getString("NEWS_REPORTER"));
+	            n.setNEWS_LINK(rs.getString("NEWS_LINK"));
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
+	        throw e; // re-throw the exception to be handled by the calling method
 	    } finally {
-	        if (rs != null) {
-	            try {
+	        try {
+	            if (rs != null) {
 	                rs.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
 	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
 	        }
-	        if (pstmt != null) {
-	            try {
+	        try {
+	            if (pstmt != null) {
 	                pstmt.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
 	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
 	        }
-	        if (conn != null) {
-	            try {
+	        try {
+	            if (conn != null) {
 	                conn.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
 	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
 	        }
 	    }
+
 	    return n;
 	}
+
 
     public static void sortByNewsSeq(List<News> newsList) {
         Collections.sort(newsList, (n1, n2) -> Integer.compare(n1.getNEWS_SEQ(), n2.getNEWS_SEQ()));

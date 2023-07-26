@@ -32,40 +32,51 @@ public class NewsCon extends HttpServlet {
 		ctx = getServletContext();
 	}
 	
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		String action = request.getParameter("action");
-		
-		dao = new NewsDAO();
-		
-		Method m;
-		String view = null;
-		
-		if(action == null) {
-			action = "listNews";
-		}
-		
-		try {
-			m = this.getClass().getMethod(action, HttpServletRequest.class);
-			view = (String)m.invoke(this, request);
-		} catch(NoSuchMethodException e) {
-			e.printStackTrace();
-			ctx.log("요청 action 없음!!");
-			request.setAttribute("error", "action 파라미터가 잘못되었습니다!!!");
-			view = START_PAGE;
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		if(view.startsWith("redirect:/")) {
-			String rview = view.substring("redirect:/".length());
-			response.sendRedirect(rview);
-		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-			dispatcher.forward(request, response);
-		}
+	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    try {
+	        request.setCharacterEncoding("utf-8");
+	        String action = request.getParameter("action");
+	        
+	        dao = new NewsDAO();
+	        
+	        Method m;
+	        String view = null;
+	        
+	        if (action == null) {
+	            action = "listNews";
+	        }
+	        
+	        try {
+	            m = this.getClass().getMethod(action, HttpServletRequest.class);
+	            view = (String)m.invoke(this, request);
+	        } catch (NoSuchMethodException e) {
+	            e.printStackTrace();
+	            ctx.log("요청 action 없음!!");
+	            request.setAttribute("error", "action 파라미터가 잘못되었습니다!!!");
+	            view = START_PAGE;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        
+	        if (view != null && view.startsWith("redirect:")) {
+	            // 리다이렉트 처리
+	            String redirectPath = view.substring("redirect:".length());
+	            response.sendRedirect(redirectPath);
+	        } else {
+	            // 포워드 처리
+	            RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+	            dispatcher.forward(request, response);
+	        }
+	    } catch (NullPointerException e) {
+	        // view 변수가 null인 경우 처리
+	        e.printStackTrace();
+	        // 또는 적절한 예외 처리를 수행하도록 수정
+	    } catch (Exception e) {
+	        // 기타 예외 처리
+	        e.printStackTrace();
+	    }
 	}
-	
+
 
 	public String listNews(HttpServletRequest request) {
 		List<News> list;
@@ -77,14 +88,14 @@ public class NewsCon extends HttpServlet {
 			ctx.log("뉴스 목록 생성 과정에서 문제 발생!!");
 			request.setAttribute("error", "뉴스 목록이 정상적으로 처리되지 않았습니다!!!");
 		}
-		return "about.jsp";
+		return "/about.jsp";
 	}
 	
 	public String getNews(HttpServletRequest request) {
-		int seq = Integer.parseInt(request.getParameter("seq"));
+		int NEWS_SEQ = Integer.parseInt(request.getParameter("NEWS_SEQ"));
 		
 		try {
-			News n = dao.getNews(seq);
+			News n = dao.getNews(NEWS_SEQ);
 			request.setAttribute("news", n);
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -92,7 +103,7 @@ public class NewsCon extends HttpServlet {
 			request.setAttribute("error", "뉴스를 정상적으로 가져오지 못했습니다!!!");
 		}
 		
-		return "about.jsp";
+		return "/newsView.jsp";
 	}
 
 	
