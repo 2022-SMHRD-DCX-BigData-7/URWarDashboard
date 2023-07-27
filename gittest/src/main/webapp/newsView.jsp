@@ -204,21 +204,24 @@
   
   <br>
 	<!-- 기사 섹션 -->
-	<div style="width: 100%">
+	<div style="width: 70%; margin:0 auto;">
 		<h1 class="fw-bolder mb-1" style="font-size: 28px">${news.NEWS_SEQ} | ${news.NEWS_TITLE}</h1>
 		<br>
 		<span style="font-size: 15px" class="text-muted fst-italic mb-2">작성일자: ${news.NEWS_AT}</span>
-		
+		<br><br>
 		<span style="font-size: 15px" class="text-muted fst-italic mb-2">${news.NEWS_PRESS}</span>
+		<div></div>
+		<span style="font-size: 15px" class="text-muted fst-italic mb-2">${news.NEWS_REPORTER}</span>
 		<hr>
 		<section class="mb-5">
-			<p class="fs-5 mb-4">Content: ${news.NEWS_CONTENT}</p>
+			
 		</section>
 		<div class="card w-75 mx-auto">
 			<div class="card-body">
-				<h4 class="card-title">PRESS: ${news.NEWS_PRESS}</h4>
-				<h4 class="card-title"> ${news.NEWS_REPORTER} 기자</h4>
+
 				<h4 class="card-title">원문보기: ${news.NEWS_LINK}</h4>
+				<p class="card-title" style="font-size: 20px">(본문)</p>
+				<p class="card-title" style="font-size: 20px">${news.NEWS_CONTENT}</p>
 				
 			</div>
 		</div>	

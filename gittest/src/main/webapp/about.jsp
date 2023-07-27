@@ -4,13 +4,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
+<c:set var="cnt" value="0"/>
 <!DOCTYPE html>
 <html>
 <%
 	NewsDAO dao = new NewsDAO();
 	List<News> newsList = dao.getAll();
-	pageContext.setAttribute("newsList",newsList);
-	
+	pageContext.setAttribute("newsList", newsList);
 %>
 <head>
   <!-- Basic -->
@@ -218,29 +218,67 @@
 
   <!-- about section -->
 	<div class="container w-75 mt-5 mx-auto">
-		<h2>뉴스 목록</h2>
-		<hr>
-		<ul class="list-group">
-			<c:forEach var="news" items="${newsList}" varStatus="status">
-				<li class="list-group-item list-group-item-action
-					d-flex justify-content-between align-items-center">
-					<a href="news.nhn?action=getNews&NEWS_SEQ=${news.NEWS_SEQ}" Class=
-					"text-decoration-none"> [${news.NEWS_SEQ},${news.NEWS_PRESS}] ${news.NEWS_TITLE}, ${news.NEWS_AT}]</a>
-				</li> 
-			</c:forEach>
-		</ul>
-		
-		<hr>
-		
-		<c:if test="${error != null}">
-			<div class="alert alert-danger alert-dismissible fade show mt-3">
-				에러 발생: ${error}
-				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-			</div>
-		</c:if>
-		<button class="btn btn-outline-info mb-3" type="button" data-bs-toggle="collapse"
-		data-bs-target="#addForm" aria-expanded="false" aria-controls="addForm">뉴스 등록</button>
-		<div class="collapse" id="addForm">
+        <h2>뉴스 목록</h2>
+        <hr>
+    <ul class="list-group">
+        <% int pageSize = 20; %>
+        <% int currentPage = (request.getParameter("page") == null) ? 1 : Integer.parseInt(request.getParameter("page")); %>
+        <% int totalNewsCount = dao.getTotalNewsCount(); %>
+        <% int totalPages = (totalNewsCount + pageSize - 1) / pageSize; %>
+        <% int startIndex = (currentPage - 1) * pageSize; %>
+        <% int endIndex = Math.min(currentPage * pageSize, totalNewsCount); %>
+        <%
+        pageContext.setAttribute("pageSize", pageSize);
+        pageContext.setAttribute("currentPage", currentPage);
+        pageContext.setAttribute("totalNewsCount", totalNewsCount);
+        pageContext.setAttribute("totalPages", totalPages);
+        pageContext.setAttribute("startIndex", startIndex);
+        pageContext.setAttribute("endIndex", endIndex);
+        
+        %>
+        <c:forEach var="cnt" begin="0" end="19">
+            <%-- Calculate the index of the news in the newsList --%>
+            <c:set var="index" value="${startIndex + cnt}" />
+            <%-- Get the news object from the newsList using the calculated index --%>
+            <c:set var="news" value="${newsList[index]}" />
+            
+            <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <a href="news.nhn?action=getNews&NEWS_SEQ=${news.NEWS_SEQ}" class="text-decoration-none">
+                    [${news.NEWS_SEQ},${news.NEWS_PRESS}] ${news.NEWS_TITLE}, ${news.NEWS_AT}]
+                </a>
+            </li>
+        </c:forEach>
+    </ul>
+    <hr>
+    
+    <!-- 페이지 링크를 추가합니다 -->
+    <div class="pagination mt-3" style="height:20px">
+        <%-- newsList가 비어있지 않은 경우에만 페이지 목록 버튼을 생성합니다 --%>
+<c:if test="${not empty newsList}">
+    <c:if test="${currentPage > 1}">
+        <a href="?page=1" class="btn btn-sm btn-outline-primary">처음</a>
+        <a href="?page=${currentPage - 1}" class="btn btn-sm btn-outline-primary">&laquo; 이전</a>
+    </c:if>
+    
+    <c:forEach var="pageNumber" begin="1" end="${totalPages}" step="1" varStatus="status">
+        <c:choose>
+            <c:when test="${pageNumber eq currentPage}">
+                <a href="?page=${pageNumber}" class="btn btn-sm btn-primary">${pageNumber}</a>
+            </c:when>
+            <c:otherwise>
+                <a href="?page=${pageNumber}" class="btn btn-sm btn-outline-primary">${pageNumber}</a>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+    
+    <c:if test="${currentPage < totalPages}">
+        <a href="?page=${currentPage + 1}" class="btn btn-sm btn-outline-primary">다음 &raquo;</a>
+        <a href="?page=${totalPages}" class="btn btn-sm btn-outline-primary">마지막</a>
+    </c:if>
+</c:if>
+        
+    </div><%-- /pagination mt-3 --%>
+        		<div class="collapse" id="addForm">
 			<div class="card card-body">
 				<form method="post" action="/jwbook/news.nhn?action=addNews"
 				enctype="multipart/form-data">
@@ -256,10 +294,9 @@
 					<textarea cols="50" rows="5" name="NEWS_CONTENT" class="form-control"></textarea>
 					<button type="submit" class="btn btn-success mt-3">저장</button>
 				</form>
-			</div>
-		</div>
-	</div>
-
+			</div><%-- /card card-body --%>
+        </div><%-- /collapse --%>
+</div><%-- /container w-75 mt-5 mx-auto --%>
 
           <!-- 뉴스 통계 시작 -->
 <div style="height: 50px; width: 80%; margin: auto;">

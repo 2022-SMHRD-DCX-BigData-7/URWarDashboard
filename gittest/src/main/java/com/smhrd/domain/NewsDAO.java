@@ -106,6 +106,38 @@ public class NewsDAO {
 	    return newsList;
 	}
 
+	public int getTotalNewsCount() throws Exception {
+	    Connection conn = open();
+	    int totalNewsCount = 0;
+
+	    String sql = "SELECT COUNT(*) AS count FROM TB_NEWS";
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            totalNewsCount = rs.getInt("count");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // Close the result set, prepared statement, and connection
+	        if (rs != null) {
+	            rs.close();
+	        }
+	        if (pstmt != null) {
+	            pstmt.close();
+	        }
+	        if (conn != null) {
+	            conn.close();
+	        }
+	    }
+
+	    return totalNewsCount;
+	}
 
 	public News getNews(int NEWS_SEQ) throws SQLException {
 	    Connection conn = open();
@@ -155,8 +187,47 @@ public class NewsDAO {
 	    return n;
 	}
 
+	public List<News> getNewsByPage(int pageNumber, int pageSize) throws Exception {
+	    Connection conn = open();
+	    List<News> newsList = new ArrayList<>();
+	    
+	    // Calculate the start index of the news items for the given page number and page size
+	    int startIndex = (pageNumber - 1) * pageSize;
+	    
+	    String sql = "SELECT NEWS_SEQ, NEWS_TITLE, NEWS_AT, NEWS_PRESS FROM (SELECT ROW_NUMBER() OVER (ORDER BY NEWS_SEQ ASC) AS rnum, NEWS_SEQ, NEWS_TITLE, NEWS_AT, NEWS_PRESS FROM TB_NEWS) WHERE rnum > ? AND rnum <= ?";
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, startIndex);
+	        pstmt.setInt(2, startIndex + pageSize);
+	        rs = pstmt.executeQuery();
 
-    public static void sortByNewsSeq(List<News> newsList) {
-        Collections.sort(newsList, (n1, n2) -> Integer.compare(n1.getNEWS_SEQ(), n2.getNEWS_SEQ()));
+	        while (rs.next()) {
+	            News n = new News();
+	            n.setNEWS_SEQ(rs.getInt("NEWS_SEQ"));
+	            n.setNEWS_TITLE(rs.getString("NEWS_TITLE"));
+	            n.setNEWS_AT(rs.getString("NEWS_AT"));
+	            n.setNEWS_PRESS(rs.getString("NEWS_PRESS"));
+	            newsList.add(n);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // Close the result set, prepared statement, and connection
+	        if (rs != null) {
+	            rs.close();
+	        }
+	        if (pstmt != null) {
+	            pstmt.close();
+	        }
+	        if (conn != null) {
+	            conn.close();
+	        }
+	    }
+	    return newsList;
 	}
+
+
 }
