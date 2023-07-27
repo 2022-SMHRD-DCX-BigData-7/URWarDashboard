@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV 파일 열기</title>
+</head>
+<body>
+    <input type="file" id="csvFileInput" />
+    <button onclick="handleFile()">파일 열기</button>
+    <div id="output"></div>
+
+    <script>
+        function handleFile() {
+            const fileInput = document.getElementById("csvFileInput");
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const content = e.target.result;
+                processData(content);
+            };
+
+            reader.readAsText(file);
+        }
+
+        function processData(csvContent) {
+            // 여기서 CSV 파일의 내용을 처리하고 원하는 열을 추출하는 로직을 작성합니다.
+            // 이 예시에서는 간단하게 쉼표(,)를 구분자로 사용하여 각 열을 나누어 리스트로 만듭니다.
+
+            const lines = csvContent.split("\n");
+            const columnToExtract = 14; // 원하는 열의 인덱스 (0부터 시작)
+            const extractedData = [];
+
+            for (const line of lines) {
+                const columns = line.split(",");
+                if (columns.length > columnToExtract) {
+                    extractedData.push(columns[columnToExtract]);
+                }
+            }
+
+            displayOutput(extractedData);
+        }
+
+        function displayOutput(data) {
+            const outputDiv = document.getElementById("output");
+            const joinedData = data.map(item => "{text: '" + item + "', weight: 1}").join(",\n");
+            const htmlContent = "<h3>추출된 열:</h3><pre>" + joinedData + "</pre>";
+            outputDiv.innerHTML = htmlContent;
+        }
+    </script>
+</body>
+</html>
