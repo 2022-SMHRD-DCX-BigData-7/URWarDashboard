@@ -219,10 +219,11 @@
 		<div class="card w-75 mx-auto">
 			<div class="card-body">
 
-				<h4 class="card-title">원문보기: ${news.NEWS_LINK}</h4>
 				<p class="card-title" style="font-size: 20px">(본문)</p>
 				<p class="card-title" style="font-size: 20px">${news.NEWS_CONTENT}</p>
-				
+				<center>
+				<button onclick="window.open('${news.NEWS_LINK}', 'window_name', 'width=1000, height=800, location=no, status=no, scrollbars=yes');">더보기</button>
+				</center>
 			</div>
 		</div>	
 		<hr>
