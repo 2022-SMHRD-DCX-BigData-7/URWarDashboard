@@ -87,7 +87,6 @@ Login/Signup modal window - by CodyHouse.co
   line-height: 50px;
   padding-left: 5%;
   background: #292a34;
-  border-top: 1px solid #3b3d4b;
   color: #FFF;
 }
 
@@ -132,10 +131,10 @@ Login/Signup modal window - by CodyHouse.co
     border-radius: 50em;
   }
   .cd-main-nav__item.cd-main-nav__item--signin {
-    background-color: rgb(150, 142, 202);
+    background-color: #2f889a;
   }
   .cd-main-nav__item.cd-main-nav__item--signup {
-    background: #e46ba6;
+    background: #607D8B;
   }
 }
 
