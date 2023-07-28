@@ -226,6 +226,34 @@
 			</div>
 		</div>	
 		<hr>
+		    <hr>
+    <section class="mb-5">
+        <!-- 댓글 목록을 보여주는 부분 -->
+        <h3>댓글 목록</h3>
+        <c:forEach var="comment" items="${commentList}">
+            <div class="card mb-2">
+                <div class="card-body">
+                    <p class="card-text">${comment.cmt_content}</p>
+                    <p class="card-text">${comment.id}</p>
+                </div>
+            </div>
+        </c:forEach>
+    </section>
+
+    <hr>
+
+    <!-- 댓글 작성 폼 -->
+    <h3>댓글 작성</h3>
+    <form action="newscmtCon" method="post">
+        <input type="hidden" name="action" value="addComment">
+        <input type="hidden" name="news_seq" value="${news.NEWS_SEQ}">
+        <div class="form-group">
+            <textarea class="form-control" name="cmt_content" rows="3" placeholder="댓글을 입력해주세요"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">댓글 작성</button>
+    </form>
+
+    <hr>
 		<a href="javascript:history.back()" class="btn btn-primary"> << Back</a>
 		
 	</div>

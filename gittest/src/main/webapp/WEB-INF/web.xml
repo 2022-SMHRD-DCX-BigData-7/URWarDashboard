@@ -10,12 +10,18 @@
   	<description></description>
   	<servlet-class>com.smhrd.controller.NewsCon</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>newscmtCon</servlet-name>
+  	<display-name>newscmtCon</display-name>
+  	<description></description>
+  	<servlet-class>com.smhrd.controller.newscmtCon</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>NewsCon</servlet-name>
   	<url-pattern>/NewsCon</url-pattern>
   </servlet-mapping>
-    <taglib>
-      <taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
-      <taglib-location>/WEB-INF/lib/jstl-core.jar</taglib-location>
-  </taglib>
+  <servlet-mapping>
+  	<servlet-name>newscmtCon</servlet-name>
+  	<url-pattern>/newscmtCon</url-pattern>
+  </servlet-mapping>
 </web-app>
