@@ -9,6 +9,7 @@
 </head>
 <body>
   <div id="myChart"></div>
+  
 <script>
 //워드클라우드 모듈불러오기
 zingchart.MODULESDIR = 'https://cdn.zingchart.com/modules/';
@@ -38,13 +39,14 @@ zingchart.MODULESDIR = 'https://cdn.zingchart.com/modules/';
 		          tooltip: {
 		            text: '%text: %hits',
 		            visible: true,
-		            alpha: 0.9,
+		            alpha: 1,
 		            backgroundColor: '#1976D2',
 		            borderRadius: 2,
 		            borderColor: 'none',
 		            fontColor: 'white',
-		            fontFamily: 'Georgia',
-		            textAlpha: 1
+		            fontFamily: 'Crete Round',
+		            textAlpha: 1,
+		            fontsize: '30px'
 		          }
 		        }
 		      },
@@ -53,7 +55,7 @@ zingchart.MODULESDIR = 'https://cdn.zingchart.com/modules/';
 		        //text: '--President Barack Obama<br> Selma 50th anniversary speech<br>March 7, 2015',
 		        //Source: https://obamawhitehouse.archives.gov/the-press-office/2015/03/07/remarks-president-50th-anniversary-selma-montgomery-marches
 		        fontColor: '#64B5F6',
-		        fontSize: 10,
+		        fontSize: 20,
 		        fontFamily: 'Georgia',
 		        fontWeight: 'normal',
 		        marginBottom: '10%'
