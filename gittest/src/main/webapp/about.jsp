@@ -218,6 +218,7 @@
 
   <!-- about section -->
 	<div class="container w-75 mt-5 mx-auto">
+
         <h2>뉴스 목록</h2>
         <hr>
     <ul class="list-group">
@@ -369,6 +370,9 @@
   <script src="js/custom.js"></script>
   <!-- sejin js -->
   <script src="js/sejin.js"></script>
+  <!-- 아래 스크립트는 HTML 파일의 끝 부분에 추가하거나 별도의 JavaScript 파일로 작성해서 로드할 수 있습니다. -->
+
+  
 
 </body>
 

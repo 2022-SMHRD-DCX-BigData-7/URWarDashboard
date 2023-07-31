@@ -187,21 +187,32 @@ public class NewsDAO {
 	    return n;
 	}
 
-	public List<News> getNewsByPage(int pageNumber, int pageSize) throws Exception {
+	public List<News> getNewsByPage(int pageNumber, int pageSize, String keyword) throws Exception {
 	    Connection conn = open();
 	    List<News> newsList = new ArrayList<>();
-	    
+
 	    // Calculate the start index of the news items for the given page number and page size
 	    int startIndex = (pageNumber - 1) * pageSize;
-	    
-	    String sql = "SELECT NEWS_SEQ, NEWS_TITLE, NEWS_AT, NEWS_PRESS FROM (SELECT ROW_NUMBER() OVER (ORDER BY NEWS_SEQ ASC) AS rnum, NEWS_SEQ, NEWS_TITLE, NEWS_AT, NEWS_PRESS FROM TB_NEWS) WHERE rnum > ? AND rnum <= ?";
+
+	    String sql;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
-	    
+
 	    try {
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, startIndex);
-	        pstmt.setInt(2, startIndex + pageSize);
+	        // If keyword is provided, add a WHERE clause to the SQL query to filter by the keyword
+	        if (keyword != null && !keyword.trim().isEmpty()) {
+	            sql = "SELECT NEWS_SEQ, NEWS_TITLE, NEWS_AT, NEWS_PRESS FROM (SELECT ROW_NUMBER() OVER (ORDER BY NEWS_SEQ ASC) AS rnum, NEWS_SEQ, NEWS_TITLE, NEWS_AT, NEWS_PRESS FROM TB_NEWS WHERE NEWS_TITLE LIKE ?) WHERE rnum > ? AND rnum <= ?";
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setString(1, "%" + keyword.trim() + "%");
+	            pstmt.setInt(2, startIndex);
+	            pstmt.setInt(3, startIndex + pageSize);
+	        } else {
+	            sql = "SELECT NEWS_SEQ, NEWS_TITLE, NEWS_AT, NEWS_PRESS FROM (SELECT ROW_NUMBER() OVER (ORDER BY NEWS_SEQ ASC) AS rnum, NEWS_SEQ, NEWS_TITLE, NEWS_AT, NEWS_PRESS FROM TB_NEWS) WHERE rnum > ? AND rnum <= ?";
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setInt(1, startIndex);
+	            pstmt.setInt(2, startIndex + pageSize);
+	        }
+
 	        rs = pstmt.executeQuery();
 
 	        while (rs.next()) {
@@ -228,6 +239,7 @@ public class NewsDAO {
 	    }
 	    return newsList;
 	}
+
 
 
 }
