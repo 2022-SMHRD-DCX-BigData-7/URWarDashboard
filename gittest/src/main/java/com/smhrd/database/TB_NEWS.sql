@@ -1,1 +1,2 @@
 SELECT * FROM TB_NEWS;
+

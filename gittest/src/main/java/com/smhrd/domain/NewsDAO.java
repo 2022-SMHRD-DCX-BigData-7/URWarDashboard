@@ -34,8 +34,8 @@ public class NewsDAO {
 	        pstmt.setString(3, n.getNEWS_CONTENT());
 	        pstmt.setString(4, n.getNEWS_PRESS());
 	        pstmt.setString(5, n.getNEWS_AT());
-	        pstmt.setString(6, n.getNEWS_REPORTER());
-	        pstmt.setString(7, n.getNEWS_LINK());
+	        pstmt.setString(6, n.getNEWS_PIC());
+	        pstmt.setString(7, n.getNEWS_TAG());
 	        pstmt.executeUpdate();
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -142,7 +142,7 @@ public class NewsDAO {
 	public News getNews(int NEWS_SEQ) throws SQLException {
 	    Connection conn = open();
 	    News n = new News();
-	    String sql = "SELECT NEWS_SEQ, NEWS_TITLE, NEWS_CONTENT, NEWS_PRESS, NEWS_AT, NEWS_REPORTER, NEWS_LINK  FROM TB_NEWS WHERE NEWS_SEQ=?";
+	    String sql = "SELECT NEWS_SEQ, NEWS_TITLE, NEWS_CONTENT, NEWS_PRESS, NEWS_AT, NEWS_PIC, NEWS_TAG  FROM TB_NEWS WHERE NEWS_SEQ=?";
 	    PreparedStatement pstmt = conn.prepareStatement(sql);
 	    pstmt.setInt(1, NEWS_SEQ);
 	    ResultSet rs = pstmt.executeQuery();
@@ -154,8 +154,8 @@ public class NewsDAO {
 	            n.setNEWS_CONTENT(rs.getString("NEWS_CONTENT"));
 	            n.setNEWS_PRESS(rs.getString("NEWS_PRESS"));
 	            n.setNEWS_AT(rs.getString("NEWS_AT"));
-	            n.setNEWS_REPORTER(rs.getString("NEWS_REPORTER"));
-	            n.setNEWS_LINK(rs.getString("NEWS_LINK"));
+	            n.setNEWS_PIC(rs.getString("NEWS_PIC"));
+	            n.setNEWS_TAG(rs.getString("NEWS_TAG"));
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();

@@ -6,8 +6,8 @@ public class News {
 	private String NEWS_CONTENT;
 	private String NEWS_PRESS;
 	private String NEWS_AT;
-	private String NEWS_REPORTER;
-	private String NEWS_LINK;
+	private String NEWS_PIC;
+	private String NEWS_TAG;
 	//생성자
 	public int getNEWS_SEQ() {
 		return NEWS_SEQ;
@@ -39,20 +39,17 @@ public class News {
 	public void setNEWS_AT(String nEWS_AT) {
 		NEWS_AT = nEWS_AT;
 	}
-	public String getNEWS_REPORTER() {
-		return NEWS_REPORTER;
+	public String getNEWS_PIC() {
+		return NEWS_PIC;
 	}
-	public void setNEWS_REPORTER(String nEWS_REPORTER) {
-		NEWS_REPORTER = nEWS_REPORTER;
+	public void setNEWS_PIC(String nEWS_PIC) {
+		NEWS_PIC = nEWS_PIC;
 	}
-	public String getNEWS_LINK() {
-		return NEWS_LINK;
+	public String getNEWS_TAG() {
+		return NEWS_TAG;
 	}
-	public void setNEWS_LINK(String nEWS_LINK) {
-		NEWS_LINK = nEWS_LINK;
+	public void setNEWS_TAG(String nEWS_TAG) {
+		NEWS_TAG = nEWS_TAG;
 	}
-
-	
-
 
 }
