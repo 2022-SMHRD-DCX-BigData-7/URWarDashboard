@@ -16,6 +16,12 @@
   	<description></description>
   	<servlet-class>com.smhrd.controller.newscmtCon</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>donateCon</servlet-name>
+  	<display-name>donateCon</display-name>
+  	<description></description>
+  	<servlet-class>com.smhrd.controller.donateCon</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>NewsCon</servlet-name>
   	<url-pattern>/NewsCon</url-pattern>
@@ -23,5 +29,9 @@
   <servlet-mapping>
   	<servlet-name>newscmtCon</servlet-name>
   	<url-pattern>/newscmtCon</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>donateCon</servlet-name>
+  	<url-pattern>/donateCon</url-pattern>
   </servlet-mapping>
 </web-app>

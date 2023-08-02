@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -75,7 +77,7 @@
                   <a class="nav-link" href="project.html">게 시 판</a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="testimonial.html">후 원</a>
+                  <a class="nav-link" href="donate.jsp">후 원</a>
                 </li>
                 <form class="form-inline">
                   <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
