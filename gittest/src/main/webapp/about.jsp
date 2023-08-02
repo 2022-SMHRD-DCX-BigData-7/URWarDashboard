@@ -84,7 +84,7 @@
                   <a class="nav-link" href="about.jsp"> 뉴 스</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="project.jsp">게 시 판</a>
+                  <a class="nav-link" href="board.jsp">게 시 판</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="donate.jsp">후 원</a>
@@ -207,6 +207,8 @@
         <a href="#0" class="cd-signin-modal__close js-close">Close</a>
       </div> <!-- cd-signin-modal__container -->
     </div> <!-- cd-signin-modal -->
+<script src="js/placeholders.min.js"></script> <!-- polyfill for the HTML5 placeholder attribute -->
+<script src="js/main.js"></script> <!-- Resource JavaScript -->
   
 <!-- login section end -->
 <%}else {%> 

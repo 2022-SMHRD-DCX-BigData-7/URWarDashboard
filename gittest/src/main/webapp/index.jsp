@@ -37,8 +37,6 @@
 	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="css/l_style.css"> <!-- Resource style -->
 	<link rel="stylesheet" href="css/demo.css"> <!-- Demo style -->
-	
-
 
 </head>
 <body>
@@ -68,7 +66,7 @@
                   <a class="nav-link" href="about.jsp"> 뉴 스</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="project.jsp">게 시 판</a>
+                  <a class="nav-link" href="board.jsp">게 시 판</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="donate.jsp">후 원</a>
