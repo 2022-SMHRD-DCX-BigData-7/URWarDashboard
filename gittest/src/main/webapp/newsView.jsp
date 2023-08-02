@@ -1,3 +1,4 @@
+<%@page import="com.smhrd.domain.member"%>
 <%@page import="com.smhrd.domain.News"%>
 <%@page import="java.util.List"%>
 <%@page import="com.smhrd.domain.NewsDAO"%>
@@ -10,16 +11,19 @@
   <!-- Basic -->
   
  <meta charset="utf-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
- <meta name="description" content="" />
- <meta name="author" content="" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
 <title>뉴스 관리 앱</title>
  <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-  <!-- Core theme CSS (includes Bootstrap)-->
-  <link href="css/sejin.css" rel="stylesheet" />
+
   <!-- fonts style -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
 
   <!--owl slider stylesheet -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
@@ -33,17 +37,10 @@
   <link href="css/responsive.css" rel="stylesheet" />
 
   <!-- login stylesheet -->
-  <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='css/font-awesome.min.css' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="css/l_style.css"> <!-- Resource style -->
 	<link rel="stylesheet" href="css/demo.css"> <!-- Demo style -->
-	<style>
-	  .card-title {
-	    font-size: 18px;
-	    width: 100%;
-	    white-space: pre-wrap; /* 줄바꿈 설정 */
-	  }
-	</style>
 </head>
 <body>
 
@@ -56,7 +53,7 @@
       <div class="header_bottom">
         <div class="container-fluid">
           <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.jsp">
               <img src="images/logo.png" alt="">
             </a>
             </a>
@@ -68,19 +65,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav  ">
                 <li class="nav-item ">
-                  <a class="nav-link" href="index.html">홈<span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="index.jsp">홈<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="service.html">차 트</a>
+                  <a class="nav-link" href="service.jsp">차 트</a>
                 </li>
                 <li class="nav-item active">
                   <a class="nav-link" href="about.jsp"> 뉴 스</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="project.html">게 시 판</a>
+                  <a class="nav-link" href="project.jsp">게 시 판</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="testimonial.html">후 원</a>
+                  <a class="nav-link" href="testimonial.jsp">후 원</a>
                 </li>
                 <form class="form-inline">
                   <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
@@ -88,119 +85,130 @@
                   </button>
                 </form>
               </ul>
-              <!--login section -->
+              <%
+	member loginMember = null;
+	if (session.getAttribute("loginMember") != null) {
+  	loginMember = (member)session.getAttribute("loginMember");}
+%>
+<% if(loginMember==null) {%>
+<!--login section -->
 <nav class="cd-main-nav js-main-nav">
-  <ul class="cd-main-nav__list js-signin-modal-trigger">
-    <!-- inser more links here -->
-    <li><a class="cd-main-nav__item cd-main-nav__item--signin" href="#0" data-signin="login">로그인</a></li>
-    <li><a class="cd-main-nav__item cd-main-nav__item--signup" href="#0" data-signin="signup">회원가입</a></li>
-  </ul>
-</nav>
-<div class="cd-signin-modal js-signin-modal"> <!-- this is the entire modal form, including the background -->
-  <div class="cd-signin-modal__container"> <!-- this is the container wrapper -->
-    <ul class="cd-signin-modal__switcher js-signin-modal-switcher js-signin-modal-trigger">
-      <li><a href="#0" data-signin="login" data-type="login">로그인</a></li>
-      <li><a href="#0" data-signin="signup" data-type="signup">회원가입</a></li>
-    </ul>
+	<ul class="cd-main-nav__list js-signin-modal-trigger">
+		<!-- inser more links here -->
+		<li><a class="cd-main-nav__item cd-main-nav__item--signin" href="#0" data-signin="login">로그인</a></li>
+		<li><a class="cd-main-nav__item cd-main-nav__item--signup" href="#0" data-signin="signup">회원가입</a></li>
+	</ul>
+		</nav>
+    <div class="cd-signin-modal js-signin-modal"> <!-- this is the entire modal form, including the background -->
+      <div class="cd-signin-modal__container"> <!-- this is the container wrapper -->
+        <ul class="cd-signin-modal__switcher js-signin-modal-switcher js-signin-modal-trigger">
+          <li><a href="#0" data-signin="login" data-type="login">로그인</a></li>
+          <li><a href="#0" data-signin="signup" data-type="signup">회원가입</a></li>
+        </ul>
+  
+        <div class="cd-signin-modal__block js-signin-modal-block" data-type="login"> <!-- log in form -->
+          <form class="cd-signin-modal__form" action="LoginCon" method="post">
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--id cd-signin-modal__label--image-replace" for="signin-id">ID</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signin-id" name="signin_id" type="text" placeholder="ID">
+              <span class="cd-signin-modal__error">Error message here!</span>
+            </p>
+  
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace" for="signin-password">Password</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signin-password" name="signin_pw" type="text"  placeholder="Password">
+              <a href="#0" class="cd-signin-modal__hide-password js-hide-password">Hide</a>
+              <span class="cd-signin-modal__error">Error message here!</span>
+            </p>
+  
+            <p class="cd-signin-modal__fieldset">
+              <input type="checkbox" id="remember-me" checked class="cd-signin-modal__input ">
+              <label for="remember-me">Remember me</label>
+            </p>
+  
+            <p class="cd-signin-modal__fieldset">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width" type="submit" value="로그인">
+            </p>
+          </form>
+          
+          <p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="reset">비밀번호를 잊어버리셨나요??</a></p>
+        </div> <!-- cd-signin-modal__block -->
+  
+        <div class="cd-signin-modal__block js-signin-modal-block" data-type="signup"> <!-- sign up form -->
+          <form class="cd-signin-modal__form" action="JoinCon" method="post">
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-id">ID</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-id" name="signup_id" type="text" placeholder="ID"  onchange="joinform_check()">
+              
+              <!-- id check start -->
+         
+             <!-- id check end -->
+              <span class="cd-signin-modal__error">Error message here!</span>
+            </p>
+            
+  
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace" for="signup-password">Password</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-password" name="signup_pw" type="text"  placeholder="Password">
+              <a href="#0" class="cd-signin-modal__hide-password js-hide-password">Hide</a>
+              <span class="cd-signin-modal__error">Error message here!</span>
+            </p>
 
-    <div class="cd-signin-modal__block js-signin-modal-block" data-type="login"> <!-- log in form -->
-      <form class="cd-signin-modal__form">
-        <p class="cd-signin-modal__fieldset">
-          <label class="cd-signin-modal__label cd-signin-modal__label--id cd-signin-modal__label--image-replace" for="signin-id">ID</label>
-          <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signin-id" type="text" placeholder="ID">
-          <span class="cd-signin-modal__error">Error message here!</span>
-        </p>
-
-        <p class="cd-signin-modal__fieldset">
-          <label class="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace" for="signin-password">Password</label>
-          <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signin-password" type="text"  placeholder="Password">
-          <a href="#0" class="cd-signin-modal__hide-password js-hide-password">Hide</a>
-          <span class="cd-signin-modal__error">Error message here!</span>
-        </p>
-
-        <p class="cd-signin-modal__fieldset">
-          <input type="checkbox" id="remember-me" checked class="cd-signin-modal__input ">
-          <label for="remember-me">Remember me</label>
-        </p>
-
-        <p class="cd-signin-modal__fieldset">
-          <input class="cd-signin-modal__input cd-signin-modal__input--full-width" type="submit" value="로그인">
-        </p>
-      </form>
-      
-      <p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="reset">비밀번호를 잊어버리셨나요??</a></p>
-    </div> <!-- cd-signin-modal__block -->
-
-    <div class="cd-signin-modal__block js-signin-modal-block" data-type="signup"> <!-- sign up form -->
-      <form class="cd-signin-modal__form">
-        <p class="cd-signin-modal__fieldset">
-          <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-id">ID</label>
-          <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-id" type="text" placeholder="ID">
-          <a href="#0" class="cd-signin-modal__check_id" onclick="alert">중복조회</a>
-          <!-- 비동기 방식으로 중복확인 만들것 -->
-          <span class="cd-signin-modal__error">Error message here!</span>
-        </p>
-        
-
-        <p class="cd-signin-modal__fieldset">
-          <label class="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace" for="signup-password">Password</label>
-          <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-password" type="text"  placeholder="Password">
-          <a href="#0" class="cd-signin-modal__hide-password js-hide-password">Hide</a>
-          <span class="cd-signin-modal__error">Error message here!</span>
-        </p>
-
-        <p class="cd-signin-modal__fieldset">
-          <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="signup-email">E-mail</label>
-          <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" type="email" placeholder="E-mail">
-          <span class="cd-signin-modal__error">Error message here!</span>
-        </p>
-
-        <p class="cd-signin-modal__fieldset">
-          <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-tel">Tel</label>
-          <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-tel" type="tel" placeholder="Tel">
-          <span class="cd-signin-modal__error">Error message here!</span>
-        </p>
-
-        <p class="cd-signin-modal__fieldset">
-          <input type="checkbox" id="accept-terms" class="cd-signin-modal__input ">
-          <label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
-        </p>
-
-        <p class="cd-signin-modal__fieldset">
-          <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit" value="Create account">
-        </p>
-      </form>
-    </div> <!-- cd-signin-modal__block -->
-
-    <div class="cd-signin-modal__block js-signin-modal-block" data-type="reset"> <!-- reset password form -->
-      <p class="cd-signin-modal__message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
-
-      <form class="cd-signin-modal__form">
-        <p class="cd-signin-modal__fieldset">
-          <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="reset-email">E-mail</label>
-          <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="reset-email" type="email" placeholder="E-mail">
-          <span class="cd-signin-modal__error">Error message here!</span>
-        </p>
-
-        <p class="cd-signin-modal__fieldset">
-          <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit" value="Reset password">
-        </p>
-      </form>
-
-      <p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="login">다시 로그인 페이지로</a></p>
-    </div> <!-- cd-signin-modal__block -->
-    <a href="#0" class="cd-signin-modal__close js-close">Close</a>
-  </div> <!-- cd-signin-modal__container -->
-</div> <!-- cd-signin-modal -->
-<script src="js/placeholders.min.js"></script> <!-- polyfill for the HTML5 placeholder attribute -->
-<script src="js/main.js"></script> <!-- Resource JavaScript -->
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-username">Username</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-username" name="signup_username" type="text" placeholder="Username">
+              <span class="cd-signin-modal__error">Error message here!</span>
+            </p>
+            
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="signup-email">E-mail</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" name="signup_email" type="email" placeholder="E-mail">
+              <span class="cd-signin-modal__error">Error message here!</span>
+            </p>
+  
+            <p class="cd-signin-modal__fieldset">
+              <input type="checkbox" id="accept-terms" class="cd-signin-modal__input ">
+              <label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
+            </p>
+  
+            <p class="cd-signin-modal__fieldset">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit"  value="회원가입">
+            </p>
+          </form>
+        </div> <!-- cd-signin-modal__block -->
+  
+        <div class="cd-signin-modal__block js-signin-modal-block" data-type="reset"> <!-- reset password form -->
+          <p class="cd-signin-modal__message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
+  
+          <form class="cd-signin-modal__form">
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="reset-email">E-mail</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="reset-email" type="email" placeholder="E-mail">
+              <span class="cd-signin-modal__error">Error message here!</span>
+            </p>
+  
+            <p class="cd-signin-modal__fieldset">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit" value="Reset password">
+            </p>
+          </form>
+  
+          <p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="login">다시 로그인 페이지로</a></p>
+        </div> <!-- cd-signin-modal__block -->
+        <a href="#0" class="cd-signin-modal__close js-close">Close</a>
+      </div> <!-- cd-signin-modal__container -->
+    </div> <!-- cd-signin-modal -->
+  
 <!-- login section end -->
-        </div>
-      </nav>
-    </div>
-  </div>
-</header>
-<!-- end header section -->
+<%}else {%>
+ 	<nav class="cd-main-nav js-main-nav">
+	<ul class="cd-main-nav__list js-signin-modal-trigger">
+		<!-- inser more links here -->
+		<li><a class="cd-main-nav__item cd-main-nav__item--signin" href="LogoutCon" data-signin="login">로그아웃</a></li>
+		<li><a class="cd-main-nav__item cd-main-nav__item--signup" href = "javascript:popup()" data-signin="signup">개인정보수정</a></li>
+	</ul>
+	<div class="cd-signin-modal js-signin-modal"> <!-- this is the entire modal form, including the background -->
+      
+<%};%>
             </div>
           </nav>
         </div>
@@ -215,25 +223,22 @@
 		<h1 class="fw-bolder mb-1" style="font-size: 28px">${news.NEWS_SEQ} | ${news.NEWS_TITLE}</h1>
 		<br>
 		<span style="font-size: 15px" class="text-muted fst-italic mb-2">작성일자: ${news.NEWS_AT}</span>
-		<br>
-		
-		<br>
+		<br><br>
 		<span style="font-size: 15px" class="text-muted fst-italic mb-2">${news.NEWS_PRESS}</span>
 		<div></div>
-		<span style="font-size: 15px" class="text-muted fst-italic mb-2">${news.NEWS_TAG}</span>
+		<span style="font-size: 15px" class="text-muted fst-italic mb-2">${news.NEWS_REPORTER}</span>
 		<hr>
 		<section class="mb-5">
 			
 		</section>
-		<div class="card w-100 mx-auto">
-			<div class="card-body" style="width: 100%">
+		<div class="card w-75 mx-auto">
+			<div class="card-body">
 
-				<p class="card-title" style="font-size: 20px; width: 100%">(본문)</p>
-    			<img src="${news.NEWS_PIC}" alt="뉴스 이미지" style="width: 100%">
-    			<br><br>
-				    <pre class="card-title" style="font-size: 15px; width: 100%"> 
-				      ${news.NEWS_CONTENT}
-				    </pre>
+				<p class="card-title" style="font-size: 20px">(본문)</p>
+				<p class="card-title" style="font-size: 20px">${news.NEWS_CONTENT}</p>
+				<center>
+				<button onclick="window.open('${news.NEWS_LINK}', 'window_name', 'width=1000, height=800, location=no, status=no, scrollbars=yes');">더보기</button>
+				</center>
 			</div>
 		</div>	
 		<hr>

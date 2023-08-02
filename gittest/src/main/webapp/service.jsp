@@ -1,20 +1,10 @@
-<%@page import="com.smhrd.domain.News"%>
-<%@page import="java.util.List"%>
-<%@page import="com.smhrd.domain.NewsDAO"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="com.smhrd.domain.member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" isELIgnored="false"%>
-<c:set var="cnt" value="0"/>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<%
-	NewsDAO dao = new NewsDAO();
-	List<News> newsList = dao.getAll();
-	pageContext.setAttribute("newsList", newsList);
-%>
 <head>
   <!-- Basic -->
-  
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!-- Mobile Metas -->
@@ -50,10 +40,10 @@
 	<link rel="stylesheet" href="css/l_style.css"> <!-- Resource style -->
 	<link rel="stylesheet" href="css/demo.css"> <!-- Demo style -->
 
-	
+
 </head>
 
-<body class="sub_page">
+<body  class="sub_page">
 
   <div class="hero_area">
     <!-- header section strats -->
@@ -62,7 +52,7 @@
       <div class="header_bottom">
         <div class="container-fluid">
           <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.jsp">
               <img src="images/logo.png" alt="">
             </a>
             </a>
@@ -73,20 +63,20 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav  ">
-                <li class="nav-item ">
-                  <a class="nav-link" href="index.html">홈<span class="sr-only">(current)</span></a>
-                </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="service.html">차 트</a>
+                  <a class="nav-link" href="index.jsp">홈 <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
+                  <a class="nav-link" href="service.jsp">차 트</a>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link" href="about.jsp"> 뉴 스</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="project.html">게 시 판</a>
+                  <a class="nav-link" href="project.jsp">게 시 판</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="testimonial.html">후 원</a>
+                  <a class="nav-link" href="testimonial.jsp">후 원</a>
                 </li>
                 <form class="form-inline">
                   <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
@@ -94,13 +84,19 @@
                   </button>
                 </form>
               </ul>
-              <!--login section -->
+              <%
+	member loginMember = null;
+	if (session.getAttribute("loginMember") != null) {
+  	loginMember = (member)session.getAttribute("loginMember");}
+%>
+<% if(loginMember==null) {%>
+<!--login section -->
 <nav class="cd-main-nav js-main-nav">
-			<ul class="cd-main-nav__list js-signin-modal-trigger">
-				<!-- inser more links here -->
-				<li><a class="cd-main-nav__item cd-main-nav__item--signin" href="#0" data-signin="login">로그인</a></li>
-				<li><a class="cd-main-nav__item cd-main-nav__item--signup" href="#0" data-signin="signup">회원가입</a></li>
-			</ul>
+	<ul class="cd-main-nav__list js-signin-modal-trigger">
+		<!-- inser more links here -->
+		<li><a class="cd-main-nav__item cd-main-nav__item--signin" href="#0" data-signin="login">로그인</a></li>
+		<li><a class="cd-main-nav__item cd-main-nav__item--signup" href="#0" data-signin="signup">회원가입</a></li>
+	</ul>
 		</nav>
     <div class="cd-signin-modal js-signin-modal"> <!-- this is the entire modal form, including the background -->
       <div class="cd-signin-modal__container"> <!-- this is the container wrapper -->
@@ -141,7 +137,7 @@
           <form class="cd-signin-modal__form" action="JoinCon" method="post">
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-id">ID</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-id" name="signup_id" type="text" placeholder="ID">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-id" name="signup_id" type="text" placeholder="ID"  onchange="joinform_check()">
               
               <!-- id check start -->
          
@@ -175,7 +171,7 @@
             </p>
   
             <p class="cd-signin-modal__fieldset">
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit" value="회원가입">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit"  value="회원가입">
             </p>
           </form>
         </div> <!-- cd-signin-modal__block -->
@@ -200,149 +196,45 @@
         <a href="#0" class="cd-signin-modal__close js-close">Close</a>
       </div> <!-- cd-signin-modal__container -->
     </div> <!-- cd-signin-modal -->
-  <script src="js/placeholders.min.js"></script> <!-- polyfill for the HTML5 placeholder attribute -->
-  <script src="js/main.js"></script> <!-- Resource JavaScript -->
+  
 <!-- login section end -->
-        </div>
-      </nav>
-    </div>
-  </div>
-</header>
-<!-- end header section -->
+<%}else {%>
+ 	<nav class="cd-main-nav js-main-nav">
+	<ul class="cd-main-nav__list js-signin-modal-trigger">
+		<!-- inser more links here -->
+		<li><a class="cd-main-nav__item cd-main-nav__item--signin" href="LogoutCon" data-signin="login">로그아웃</a></li>
+		<li><a class="cd-main-nav__item cd-main-nav__item--signup" href = "javascript:popup()" data-signin="signup">개인정보수정</a></li>
+	</ul>
+	<div class="cd-signin-modal js-signin-modal"> <!-- this is the entire modal form, including the background -->
+      
+<%};%>
             </div>
           </nav>
         </div>
       </div>
     </header>
     <!-- end header section -->
-  </div>
 
 
-  <!-- about section -->
-	<div class="container w-75 mt-5 mx-auto">
-        <h2>뉴스 목록</h2>
-        <hr>
-    <ul class="list-group">
-        <% int pageSize = 20; %>
-        <% int currentPage = (request.getParameter("page") == null) ? 1 : Integer.parseInt(request.getParameter("page")); %>
-        <% int totalNewsCount = dao.getTotalNewsCount(); %>
-        <% int totalPages = (totalNewsCount + pageSize - 1) / pageSize; %>
-        <% int startIndex = (currentPage - 1) * pageSize; %>
-        <% int endIndex = Math.min(currentPage * pageSize, totalNewsCount); %>
-        <%
-        pageContext.setAttribute("pageSize", pageSize);
-        pageContext.setAttribute("currentPage", currentPage);
-        pageContext.setAttribute("totalNewsCount", totalNewsCount);
-        pageContext.setAttribute("totalPages", totalPages);
-        pageContext.setAttribute("startIndex", startIndex);
-        pageContext.setAttribute("endIndex", endIndex);
-        
-        %>
-        <c:forEach var="cnt" begin="0" end="19">
-            <%-- Calculate the index of the news in the newsList --%>
-            <c:set var="index" value="${startIndex + cnt}" />
-            <%-- Get the news object from the newsList using the calculated index --%>
-            <c:set var="news" value="${newsList[index]}" />
-            
-            <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <a href="news.nhn?action=getNews&NEWS_SEQ=${news.NEWS_SEQ}" class="text-decoration-none">
-                    [${news.NEWS_SEQ},${news.NEWS_PRESS}] ${news.NEWS_TITLE}, ${news.NEWS_AT}]
-                </a>
-            </li>
-        </c:forEach>
-    </ul>
-    <hr>
-    
-    <!-- 페이지 링크를 추가합니다 -->
-    <div class="pagination mt-3" style="height:20px">
-        <%-- newsList가 비어있지 않은 경우에만 페이지 목록 버튼을 생성합니다 --%>
-<c:if test="${not empty newsList}">
-    <c:if test="${currentPage > 1}">
-        <a href="?page=1" class="btn btn-sm btn-outline-primary">처음</a>
-        <a href="?page=${currentPage - 1}" class="btn btn-sm btn-outline-primary">&laquo; 이전</a>
-    </c:if>
-    
-    <c:forEach var="pageNumber" begin="1" end="${totalPages}" step="1" varStatus="status">
-        <c:choose>
-            <c:when test="${pageNumber eq currentPage}">
-                <a href="?page=${pageNumber}" class="btn btn-sm btn-primary">${pageNumber}</a>
-            </c:when>
-            <c:otherwise>
-                <a href="?page=${pageNumber}" class="btn btn-sm btn-outline-primary">${pageNumber}</a>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
-    
-    <c:if test="${currentPage < totalPages}">
-        <a href="?page=${currentPage + 1}" class="btn btn-sm btn-outline-primary">다음 &raquo;</a>
-        <a href="?page=${totalPages}" class="btn btn-sm btn-outline-primary">마지막</a>
-    </c:if>
-</c:if>
-        
-    </div><%-- /pagination mt-3 --%>
-        		<div class="collapse" id="addForm">
-			<div class="card card-body">
-				<form method="post" action="/jwbook/news.nhn?action=addNews"
-				enctype="multipart/form-data">
-					<label class="form-label">제목</label>
-					<input type="text" name="NEWS_TITLE" class="form-control">
-					<label class="form-label">언론사</label>
-					<input type="text" name="NEWS_PRESS" class="form-control">
-					<label class="form-label">기자</label>
-					<input type="text" name="NEWS_REPORTER" class="form-control">
-					<label class="form-label">날짜</label>
-					<input type="text" name="NEWS_AT" class="form-control">
-					<label class="form-label">기사 내용</label>
-					<textarea cols="50" rows="5" name="NEWS_CONTENT" class="form-control"></textarea>
-					<button type="submit" class="btn btn-success mt-3">저장</button>
-				</form>
-			</div><%-- /card card-body --%>
-        </div><%-- /collapse --%>
-</div><%-- /container w-75 mt-5 mx-auto --%>
 
-          <!-- 뉴스 통계 시작 -->
-<div style="height: 50px; width: 80%; margin: auto;">
-    <button id="newsButton" style="width: 33.333%; height: 100%; float: left">월별 기사 수</button>
-    <button id="keyButton" style="width: 33.333%; height: 100%;">주요 키워드</button>
-    <button id="wordButton" style="width: 33.333%; height: 100%; float: right">워드클라우드</button>
-</div>
+  <!-- service section -->
+	
+	<iframe src="https://public.tableau.com/views/_16905110701730/sheet0?:language=ko-KR&:display_count=n&:showVizHome=no&:embed=true&:origin=viz_share_link" 
+	    style="margin-left:2.5%; margin-top:0.5%; width:95%; min-height:650px;"></iframe>
 
-<div id="iframeContainer" style="height: 500px; width: 80%; display: none; margin: auto;">
-    <iframe id="myIframe" src="news_count.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
-</div>
-
-<div id="iframeContainer2" style="height: 500px; width: 80%; display: none; margin: auto;">
-    <iframe id="myIframe2" src="keyword_count.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
-</div>
-
-<div id="imgContainer" style="height: 500px; width: 80%; display: none; margin: auto;">
-    <iframe id="myIframe3" src="wordcloud.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
-</div>
-
-          <!-- 뉴스 통계 끝 -->
-  
-  <!-- end about section -->
+  <!-- end service section -->
 
 
-  <!-- info section -->
-  <section class="info_section ">
-    <div class="container">
-      <div class="info_bottom">
-        <div class="row">
-          <div class="col-md-2">
-            <div class="info_logo">
-              <a href="">
-                <!-- 로고변경 -->
-                <img src="images/logo2.png" alt="">
-              </a>
-            </div>
+    <!-- info section -->
+    <section class="info_section ">
+      <div class="container">
+        <div class="info_bottom">
+          <div class="row">
           </div>
         </div>
-
       </div>
-    </div>
-  </section>
-  <!-- end info_section -->
+    </section>
+    <!-- end info_section -->
 
   <!-- footer section -->
   <footer class="footer_section">
@@ -369,9 +261,7 @@
   <script src="https://huynhhuynh.github.io/owlcarousel2-filter/dist/owlcarousel2-filter.min.js"></script>
   <!-- custom js -->
   <script src="js/custom.js"></script>
-  <!-- sejin js -->
-  <script src="js/sejin.js"></script>
+  
 
 </body>
-
 </html>
