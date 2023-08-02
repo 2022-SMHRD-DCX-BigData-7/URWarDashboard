@@ -1,2 +1,2 @@
-SELECT * FROM TB_NEWS;
+SELECT * FROM TB_userinfo;
 
