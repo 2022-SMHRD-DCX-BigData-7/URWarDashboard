@@ -1,7 +1,9 @@
+<%@page import="com.smhrd.domain.newscmt"%>
+<%@page import="com.smhrd.domain.newscmtDAO"%>
 <%@page import="com.smhrd.domain.member"%>
 <%@page import="com.smhrd.domain.News"%>
-<%@page import="java.util.List"%>
 <%@page import="com.smhrd.domain.NewsDAO"%>
+<%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
@@ -253,15 +255,29 @@
 		    <hr>
     <section class="mb-5">
         <!-- 댓글 목록을 보여주는 부분 -->
-        <h3>댓글 목록</h3>
+		<%
+	    newscmtDAO dao = new newscmtDAO(); // 댓글 DAO 객체 생성
+	    int news_seq = Integer.parseInt(request.getParameter("NEWS_SEQ"));
+	    List<newscmt> commentList = dao.getCommentsByNewsSeq(news_seq);
+	    pageContext.setAttribute("commentList", commentList); 
+		%>
+
+        <h3>댓글 목록</h3><br><br>
+        <c:if test="${not empty commentList}">
         <c:forEach var="comment" items="${commentList}">
+        	<span class="card-text">아이디: ${comment.id}</span>
+
             <div class="card mb-2">
                 <div class="card-body">
                     <p class="card-text">${comment.cmt_content}</p>
-                    <p class="card-text">${comment.id}</p>
                 </div>
             </div>
+            <div style="text-align: right">
+	    	    <button class="edit-btn" data-cmtseq="${comment.cmt_seq}" data-cmtcontent="${comment.cmt_content}">수정</button>
+	            <button class="delete-btn" data-cmtseq="${comment.cmt_seq}">삭제</button>
+            </div>
         </c:forEach>
+        </c:if>
     </section>
 
     <hr>
@@ -271,6 +287,7 @@
     <form action="newscmtCon" method="post">
         <input type="hidden" name="action" value="addComment">
         <input type="hidden" name="news_seq" value="${news.NEWS_SEQ}">
+        <input type="hidden" name="id" value="${loginMember.id}">
         <div class="form-group">
             <textarea class="form-control" name="cmt_content" rows="3" placeholder="댓글을 입력해주세요"></textarea>
         </div>
@@ -309,6 +326,70 @@
   <script src="js/custom.js"></script>
   <!-- sejin js -->
   <script src="js/sejin.js"></script>
+<script>
+    const editButtons = document.querySelectorAll(".edit-btn");
+    const deleteButtons = document.querySelectorAll(".delete-btn");
+
+    editButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const cmtSeq = button.getAttribute("data-cmtseq");
+            const cmtContent = button.getAttribute("data-cmtcontent");
+            const newContent = prompt("댓글을 수정해주세요:", cmtContent);
+
+            if (newContent !== null) {
+                // 서블릿으로 수정 요청을 보내는 코드 추가
+                const encodedNewContent = encodeURIComponent(newContent);
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = "newscmtCon";
+                const actionInput = document.createElement("input");
+                actionInput.type = "hidden";
+                actionInput.name = "action";
+                actionInput.value = "updateComment";
+                const cmtSeqInput = document.createElement("input");
+                cmtSeqInput.type = "hidden";
+                cmtSeqInput.name = "cmt_seq";
+                cmtSeqInput.value = cmtSeq;
+                const newContentInput = document.createElement("input");
+                newContentInput.type = "hidden";
+                newContentInput.name = "new_content";
+                newContentInput.value = newContent;
+                form.appendChild(actionInput);
+                form.appendChild(cmtSeqInput);
+                form.appendChild(newContentInput);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const cmtSeq = button.getAttribute("data-cmtseq");
+            const confirmDelete = confirm("정말 삭제하시겠습니까?");
+
+            if (confirmDelete) {
+                // 서블릿으로 삭제 요청을 보내는 코드 추가
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = "newscmtCon";
+                const actionInput = document.createElement("input");
+                actionInput.type = "hidden";
+                actionInput.name = "action";
+                actionInput.value = "deleteComment";
+                const cmtSeqInput = document.createElement("input");
+                cmtSeqInput.type = "hidden";
+                cmtSeqInput.name = "cmt_seq";
+                cmtSeqInput.value = cmtSeq;
+                form.appendChild(actionInput);
+                form.appendChild(cmtSeqInput);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+</script>
+
 
 </body>
 </html>
