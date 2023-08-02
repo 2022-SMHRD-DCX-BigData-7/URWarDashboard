@@ -46,7 +46,7 @@
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('로그인을 하세요.')");
-            script.println("location.href = 'login.jsp'"); // 다시 게시글 페이지로 이동
+            script.println("location.href = 'kakaologin.html'"); // 다시 게시글 페이지로 이동
             script.println("</script>");
         }
         int WB_SEQ = 0; // 게시글 번호
