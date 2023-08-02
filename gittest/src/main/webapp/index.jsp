@@ -195,10 +195,59 @@
 	<ul class="cd-main-nav__list js-signin-modal-trigger">
 		<!-- inser more links here -->
 		<li><a class="cd-main-nav__item cd-main-nav__item--signin" href="LogoutCon" data-signin="login">로그아웃</a></li>
-		<li><a class="cd-main-nav__item cd-main-nav__item--signup" href = "javascript:popup()" data-signin="signup">개인정보수정</a></li>
+		<li><a class="cd-main-nav__item cd-main-nav__item--signup" href = "#0" data-signin="signup">개인정보</a></li>
 	</ul>
 	<div class="cd-signin-modal js-signin-modal"> <!-- this is the entire modal form, including the background -->
-      
+      <div class="cd-signin-modal__container"> <!-- this is the container wrapper -->
+          <a href="#0" data-signin="signup" data-type="signup">개인정보</a>
+  
+        <div class="cd-signin-modal__block js-signin-modal-block" data-type="signup"> <!-- sign up form -->
+          <form class="cd-signin-modal__form" action="UpdateCon" method="post">
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-id">ID</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-id" name="update_id" type="text" readonly="readonly"placeholder="" >
+            </p>
+            
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace" for="signup-password">Password</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-password" name="update_pw" type="text"  placeholder="Password">
+              <a href="#0" class="cd-signin-modal__hide-password js-hide-password">Hide</a>
+            </p>
+
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-username">Username</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-username" name="update_username" type="text" placeholder="Username">
+            </p>
+            
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="signup-email">E-mail</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" name="update_email" type="email" placeholder="E-mail">
+            </p>
+  
+            <p class="cd-signin-modal__fieldset">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit"  value="개인정보 수정">
+            </p>
+          </form>
+        </div> <!-- cd-signin-modal__block -->
+  
+        <div class="cd-signin-modal__block js-signin-modal-block" data-type="reset"> <!-- reset password form -->
+          <p class="cd-signin-modal__message">회원 탈퇴를 하시겠습니까? 하단에 해당 회원의 비밀번호를 입력해주세요.</p>
+  
+          <form class="cd-signin-modal__form">
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="delete-password">Password</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="delete-password"name="delete_password" type="password" placeholder="Password">
+              <span class="cd-signin-modal__error">Error message here!</span>
+            </p>
+  
+            <p class="cd-signin-modal__fieldset">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit" value="탈퇴">
+            </p>
+          </form>
+        </div> <!-- cd-signin-modal__block -->
+        <a href="#0" class="cd-signin-modal__close js-close">Close</a>
+      </div> <!-- cd-signin-modal__container -->
+    </div> <!-- cd-signin-modal --> 
 <%};%>
             </div>
           </nav>

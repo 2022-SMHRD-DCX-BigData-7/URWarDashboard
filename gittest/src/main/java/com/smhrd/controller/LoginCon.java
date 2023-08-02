@@ -45,16 +45,20 @@ public class LoginCon extends HttpServlet {
 			// Servlet에서 session 사용할때는 session객체 생성
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", loginMember);
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인에 성공하였습니다.'); location.href='index.jsp';</script>");
+			out.flush();
 			
 		}else {
 			System.out.println("로그인 실패");
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인에 실패하였습니다.'); location.href='index.jsp';</script>");
+			out.flush();
 		}
 		
-		// 로그인 성공 했든 안했든 main.jsp로 이동
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		out.println("<script>alert('로그인에 성공하였습니다.'); location.href='index.jsp';</script>");
-		out.flush();
+		
 
 		
 		
