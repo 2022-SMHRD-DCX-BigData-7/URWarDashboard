@@ -1,6 +1,7 @@
 package com.smhrd.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,12 +42,18 @@ public class JoinCon extends HttpServlet {
 			// 회원가입 성공하면 joinSuccess.jsp 이동
 			// 회원가입한 email을 담아서 이동 -> forward방식
 			request.setAttribute("joinId", id);
-			response.sendRedirect("index.jsp");
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('회원가입에 성공하였습니다.'); location.href='index.jsp';</script>");
+			out.flush();
 			
 		}else {
 			// 회원가입 실패하면 main.jsp 이동 -> redirect방식
 			System.out.println("회원가입 실패");
-			response.sendRedirect("index.jsp");
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('회원가입에 실패하였습니다.'); location.href='index.jsp';</script>");
+			out.flush();
 		}	
 		
 	}
