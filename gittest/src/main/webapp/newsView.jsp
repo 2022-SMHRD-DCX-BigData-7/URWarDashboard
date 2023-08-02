@@ -41,6 +41,13 @@
 	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="css/l_style.css"> <!-- Resource style -->
 	<link rel="stylesheet" href="css/demo.css"> <!-- Demo style -->
+		<style>
+	  .card-title {
+	    font-size: 18px;
+	    width: 100%;
+	    white-space: pre-wrap; /* 줄바꿈 설정 */
+	  }
+	</style>
 </head>
 <body>
 
@@ -226,19 +233,20 @@
 		<br><br>
 		<span style="font-size: 15px" class="text-muted fst-italic mb-2">${news.NEWS_PRESS}</span>
 		<div></div>
-		<span style="font-size: 15px" class="text-muted fst-italic mb-2">${news.NEWS_REPORTER}</span>
+		<span style="font-size: 15px" class="text-muted fst-italic mb-2">${news.NEWS_TAG}</span>
 		<hr>
 		<section class="mb-5">
 			
 		</section>
-		<div class="card w-75 mx-auto">
-			<div class="card-body">
+		<div class="card w-100 mx-auto">
+			<div class="card-body" style="width: 100%">
 
-				<p class="card-title" style="font-size: 20px">(본문)</p>
-				<p class="card-title" style="font-size: 20px">${news.NEWS_CONTENT}</p>
-				<center>
-				<button onclick="window.open('${news.NEWS_LINK}', 'window_name', 'width=1000, height=800, location=no, status=no, scrollbars=yes');">더보기</button>
-				</center>
+				<p class="card-title" style="font-size: 20px; width: 100%"></p>
+    			<img src="${news.NEWS_PIC}" alt="뉴스 이미지" style="width: 100%">
+    			<br><br>
+				    <pre class="card-title" style="font-size: 15px; width: 100%"> 
+				      ${news.NEWS_CONTENT}
+				    </pre>
 			</div>
 		</div>	
 		<hr>

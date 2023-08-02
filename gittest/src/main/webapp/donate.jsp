@@ -206,9 +206,19 @@
     <!-- end header section -->
   </div>
 
-  <!-- client section -->
+  <!-- donation section -->
   
-  <!-- end client section -->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- end donation section -->
 
 
   <!-- info section -->

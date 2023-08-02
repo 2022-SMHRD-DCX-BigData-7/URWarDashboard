@@ -25,7 +25,7 @@ public class NewsDAO {
 	public void addNews(News n) throws Exception {
 	    Connection conn = open();
 
-	    String sql = "INSERT INTO TB_NEWS(NEWS_SEQ, NEWS_TITLE, NEWS_CONTENT, NEWS_PRESS, NEWS_AT, NEWS_REPORTER, NEWS_LINK) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	    String sql = "INSERT INTO TB_NEWS(NEWS_SEQ, NEWS_TITLE, NEWS_CONTENT, NEWS_PRESS, NEWS_AT, NEWS_PIC, NEWS_TAG) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	    PreparedStatement pstmt = conn.prepareStatement(sql);
 
 	    try {
