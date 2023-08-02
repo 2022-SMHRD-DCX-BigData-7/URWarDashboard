@@ -190,7 +190,7 @@
     </div> <!-- cd-signin-modal -->
   
 <!-- login section end -->
-<%}else {%>
+<%}else {%> 
  	<nav class="cd-main-nav js-main-nav">
 	<ul class="cd-main-nav__list js-signin-modal-trigger">
 		<!-- inser more links here -->
