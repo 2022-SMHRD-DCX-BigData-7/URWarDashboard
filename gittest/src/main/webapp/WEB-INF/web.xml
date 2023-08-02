@@ -3,6 +3,7 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
+<display-name>Archetype Created Web Application</display-name>
 <servlet>
   	<servlet-name>LogoutCon</servlet-name>
   	<display-name>LogoutCon</display-name>
@@ -33,7 +34,7 @@
   	<description></description>
   	<servlet-class>com.smhrd.controller.LoginCon</servlet-class>
   </servlet>
-  <display-name>Archetype Created Web Application</display-name>
+
   <servlet>
   	<servlet-name>NewsCon</servlet-name>
   	<display-name>NewsCon</display-name>
