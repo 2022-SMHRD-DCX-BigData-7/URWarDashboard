@@ -71,7 +71,7 @@
                   <a class="nav-link" href="project.jsp">게 시 판</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="testimonial.jsp">후 원</a>
+                  <a class="nav-link" href="donate.jsp">후 원</a>
                 </li>
               </ul>
               
