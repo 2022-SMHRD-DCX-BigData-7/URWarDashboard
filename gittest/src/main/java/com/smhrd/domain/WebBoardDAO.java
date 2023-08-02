@@ -94,10 +94,10 @@ public class WebBoardDAO {
 	        ArrayList<WebBoard> list = new ArrayList<WebBoard>(); 
 	        try {
 	        	PreparedStatement pstmt = conn.prepareStatement(SQL);
-	            pstmt.setInt(1, getNext() - (pageNumber -1 ) * 10);//getnext 다음으로 작성될글의 번호
+	            pstmt.setInt(1, getNext() - (pageNumber -1 ) * 10);
 	            rs = pstmt.executeQuery();
 	            while (rs.next()) {
-	            	WebBoard TB_WEBBOARD = new WebBoard();//BBS에 담긴 데이터 가져오기
+	            	WebBoard TB_WEBBOARD = new WebBoard();
 	            	TB_WEBBOARD.setWB_SEQ(rs.getInt(1));
 	            	TB_WEBBOARD.setWB_TITLE(rs.getString(2));
 	            	TB_WEBBOARD.setWB_CONTENT(rs.getString(3));
@@ -106,7 +106,7 @@ public class WebBoardDAO {
 	            	TB_WEBBOARD.setWB_LIKES(rs.getInt(6));
 	            	TB_WEBBOARD.setCREATED_AT(rs.getString(7));
 	            	TB_WEBBOARD.setID(rs.getString(8));
-	                list.add(TB_WEBBOARD);//모든 내용이 담긴 게시글 인스턴스를 리스트에 담아 반환
+	                list.add(TB_WEBBOARD);
 	            }
 	        } catch(Exception e) {
 	            e.printStackTrace();
@@ -149,7 +149,9 @@ public class WebBoardDAO {
 		            	TB_WEBBOARD.setWB_CONTENT(rs.getString(3));
 		            	TB_WEBBOARD.setWB_FILE(rs.getString(4));
 		            	TB_WEBBOARD.setWB_VIEWS(rs.getInt(5));
-		            	TB_WEBBOARD.setWB_LIKES(rs.getInt(6));
+		            	int WB_VIEWS =rs.getInt(6);
+		                TB_WEBBOARD.setWB_VIEWS(WB_VIEWS);
+		                WB_VIEWS++;
 		            	TB_WEBBOARD.setCREATED_AT(rs.getString(7));
 		            	TB_WEBBOARD.setID(rs.getString(8));
 		                return TB_WEBBOARD;
@@ -185,6 +187,31 @@ public class WebBoardDAO {
 	        }
 	        return -1; //데이터베이스오류
 	    }
-	 
+	    
+	    
+	    public int WB_VIEWS(int WB_VIEWS, int WB_SEQ) {
+			String SQL = "update TB_WEBBOARD set WB_VIEWS = ? where WB_SEQ = ?";
+			try {
+				PreparedStatement pstmt=conn.prepareStatement(SQL);
+				pstmt.setInt(1, WB_VIEWS);//물음표의 순서
+				pstmt.setInt(2, WB_SEQ);
+				return pstmt.executeUpdate();			
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return -1;
+	}
+	    
+	    public int WB_LIKES(int WB_SEQ) {
+			String SQL = "update TB_WEBBOARD set WB_LIKES = WB_LIKES + 1 where  WB_SEQ = ?";
+			try {
+				PreparedStatement pstmt = conn.prepareStatement(SQL);
+				pstmt.setInt(1,  WB_SEQ);
+				return pstmt.executeUpdate();
+			} catch(Exception e) {
+				e.printStackTrace();
+			} 
+			return -1;
+		}
 }
 

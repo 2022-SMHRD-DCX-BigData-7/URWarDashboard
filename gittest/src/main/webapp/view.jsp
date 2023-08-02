@@ -62,7 +62,12 @@
                             <td colspan="2" style="min-height: 200px; text-align: left;"><%= WebBoard.getWB_CONTENT().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>;") %>
                         </td>
                     </tr>
-                </tbody>
+                    <tr>
+						<td>조회수</td>
+						<td colspan="2"><%=WebBoard.getWB_VIEWS() + 1%></td>
+					</tr>
+					 <a onclick="return confirm('추천하시겠습니까?')"href="likeAction.jsp?bbsID=%=bbsID%>" class="btn btn-success pull-right">👍</a>
+				</tbody>
             </table>
             <a href="board.jsp" class="btn btn-primary">목록</a>
 

@@ -242,6 +242,8 @@
                         </td>
                         <td><%= list.get(i).getID() %></td>
                         <td><%= list.get(i).getCREATED_AT().substring(0, 11) %></td>
+                        <td><%=list.get(i).getWB_VIEWS()%></td>
+                        <th style="background-color: #2e8b57; text-align: center;">추천수👍</th> 
                     </tr>
                     <%
                         }
