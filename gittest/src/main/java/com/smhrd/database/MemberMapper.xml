@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespacd : SQL태그 id를 그룹화하기 위한 속성 -->
+<mapper namespace="com.smhrd.database.MemberMapper">
+	<!-- SQL태그의 id : 중복 불가. 해당태그의 고유한 식별자 -->
+	<!-- SQL문에 세미콜론 적지 않을것~
+		바인드변수 ?와 같은 역할로 #{컬럼명} #{객체의 필드명}
+		다른 태그를 실행하더라도 오류가 있는 태그를 써두면 오류남
+	 -->
+	 
+	 <insert id="insertMember" parameterType="com.smhrd.domain.member">
+	 	insert into tb_userinfo values (#{id},#{pw},#{username},#{email})
+	 </insert>
+	 
+	 
+	 <select id="selectMember" parameterType="com.smhrd.domain.member"
+	 	resultType="com.smhrd.domain.member">
+	 select * from tb_userinfo where id=#{id} and pw=#{pw}
+	 </select>
+	 
+	 <update id="updateMember" parameterType="com.smhrd.domain.member">
+	 update tb_userinfo set pw=#{pw}, username=#{username}, email=#{email}
+	 where id=#{id}
+	 </update>
+	 
+	 <select id="selectAll" resultType="com.smhrd.domain.member">
+	 select * from tb_userinfo
+	 </select>
+	 
+	 
+	 <delete id="deleteMember" parameterType="String">
+	 	delete from tb_userinfo where id=#{id}
+	 </delete>
+	 
+	 
+</mapper>

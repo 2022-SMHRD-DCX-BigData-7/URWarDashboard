@@ -1,3 +1,11 @@
+<%@page import="com.smhrd.domain.donate"%>
+<%@page import="java.util.List"%>
+<%@page import="com.smhrd.domain.donateDAO"%>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -63,19 +71,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav  ">
                 <li class="nav-item ">
-                  <a class="nav-link" href="index.html">홈 <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="index.jsp">홈 <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="service.html">차 트</a>
+                  <a class="nav-link" href="service.jsp">차 트</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="about.jsp">뉴 스</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="project.html">게 시 판</a>
+                  <a class="nav-link" href="project.jsp">게 시 판</a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="testimonial.html">후 원</a>
+                  <a class="nav-link" href="donate.jsp">후 원</a>
                 </li>
                 <form class="form-inline">
                   <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
@@ -204,9 +212,18 @@
     <!-- end header section -->
   </div>
 
-  <!-- client section -->
+  <!-- donation section -->
   
-  <!-- end client section -->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- end donation section -->
 
 
   <!-- info section -->

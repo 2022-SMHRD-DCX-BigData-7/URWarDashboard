@@ -3,7 +3,38 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+<display-name>Archetype Created Web Application</display-name>
+<servlet>
+  	<servlet-name>LogoutCon</servlet-name>
+  	<display-name>LogoutCon</display-name>
+  	<description></description>
+  	<servlet-class>com.smhrd.controller.LogoutCon</servlet-class>
+  </servlet>
+<servlet>
+  	<servlet-name>UpdateCon</servlet-name>
+  	<display-name>UpdateCon</display-name>
+  	<description></description>
+  	<servlet-class>com.smhrd.controller.UpdateCon</servlet-class>
+  </servlet>
+<servlet>
+  	<servlet-name>DeleteCon</servlet-name>
+  	<display-name>DeleteCon</display-name>
+  	<description></description>
+  	<servlet-class>com.smhrd.controller.DeleteCon</servlet-class>
+  </servlet>
+ <servlet>
+  	<servlet-name>JoinCon</servlet-name>
+  	<display-name>JoinCon</display-name>
+  	<description></description>
+  	<servlet-class>com.smhrd.controller.JoinCon</servlet-class>
+  </servlet>
+<servlet>
+  	<servlet-name>LoginCon</servlet-name>
+  	<display-name>LoginCon</display-name>
+  	<description></description>
+  	<servlet-class>com.smhrd.controller.LoginCon</servlet-class>
+  </servlet>
+
   <servlet>
   	<servlet-name>NewsCon</servlet-name>
   	<display-name>NewsCon</display-name>
@@ -16,6 +47,12 @@
   	<description></description>
   	<servlet-class>com.smhrd.controller.newscmtCon</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>donateCon</servlet-name>
+  	<display-name>donateCon</display-name>
+  	<description></description>
+  	<servlet-class>com.smhrd.controller.donateCon</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>NewsCon</servlet-name>
   	<url-pattern>/NewsCon</url-pattern>
@@ -23,5 +60,29 @@
   <servlet-mapping>
   	<servlet-name>newscmtCon</servlet-name>
   	<url-pattern>/newscmtCon</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>donateCon</servlet-name>
+  	<url-pattern>/donateCon</url-pattern>
+  </servlet-mapping>
+ <servlet-mapping>
+  	<servlet-name>JoinCon</servlet-name>
+  	<url-pattern>/JoinCon</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+  	<servlet-name>LoginCon</servlet-name>
+  	<url-pattern>/LoginCon</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LogoutCon</servlet-name>
+  	<url-pattern>/LogoutCon</url-pattern>
+  </servlet-mapping>
+<servlet-mapping>
+  	<servlet-name>UpdateCon</servlet-name>
+  	<url-pattern>/UpdateCon</url-pattern>
+  </servlet-mapping>
+<servlet-mapping>
+  	<servlet-name>DeleteCon</servlet-name>
+  	<url-pattern>/DeleteCon</url-pattern>
   </servlet-mapping>
 </web-app>
