@@ -14,6 +14,11 @@
 	 	insert into tb_userinfo values (#{id},#{pw},#{username},#{email})
 	 </insert>
 	 
+	 <select id="idselectMember" parameterType="com.smhrd.domain.member"
+	 	resultType="com.smhrd.domain.member">
+	 select id from tb_userinfo where id = #{id}
+	 </select>
+	 
 	 
 	 <select id="selectMember" parameterType="com.smhrd.domain.member"
 	 	resultType="com.smhrd.domain.member">
@@ -30,9 +35,18 @@
 	 </select>
 	 
 	 
-	 <delete id="deleteMember" parameterType="String">
-	 	delete from tb_userinfo where id=#{id}
+	 <delete id="deleteMember" parameterType="com.smhrd.domain.member">
+	 	delete tb_userinfo where id=#{id}
 	 </delete>
 	 
+	 <select id="idsearchMember" parameterType="com.smhrd.domain.member"
+	 	resultType="com.smhrd.domain.member">
+	 select id from tb_userinfo where username=#{username} and email=#{email}
+	 </select>
+	 
+	 <select id="pwsearchMember" parameterType="com.smhrd.domain.member"
+	 	resultType="com.smhrd.domain.member">
+	 select pw from tb_userinfo where id=#{id} and username=#{username} and email=#{email}
+	 </select>
 	 
 </mapper>
