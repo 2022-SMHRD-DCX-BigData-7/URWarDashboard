@@ -265,8 +265,9 @@
         <h3>댓글 목록</h3><br><br>
         <c:if test="${not empty commentList}">
         <c:forEach var="comment" items="${commentList}">
-        	<span class="card-text">아이디: ${comment.id}</span>
-
+        	<span class="card-text">${comment.id}</span>
+        	
+			<span style="text-align: right">${comment.cmt_at}</span>
             <div class="card mb-2">
                 <div class="card-body">
                     <p class="card-text">${comment.cmt_content}</p>
@@ -334,34 +335,46 @@
         button.addEventListener("click", () => {
             const cmtSeq = button.getAttribute("data-cmtseq");
             const cmtContent = button.getAttribute("data-cmtcontent");
-            const newContent = prompt("댓글을 수정해주세요:", cmtContent);
+            const loginMember = "${sessionScope.loginMember}"; // JSP 코드로 세션에 저장된 사용자 ID 가져오기
 
-            if (newContent !== null) {
-                // 서블릿으로 수정 요청을 보내는 코드 추가
-                const encodedNewContent = encodeURIComponent(newContent);
-                const form = document.createElement("form");
-                form.method = "POST";
-                form.action = "newscmtCon";
-                const actionInput = document.createElement("input");
-                actionInput.type = "hidden";
-                actionInput.name = "action";
-                actionInput.value = "updateComment";
-                const cmtSeqInput = document.createElement("input");
-                cmtSeqInput.type = "hidden";
-                cmtSeqInput.name = "cmt_seq";
-                cmtSeqInput.value = cmtSeq;
-                const newContentInput = document.createElement("input");
-                newContentInput.type = "hidden";
-                newContentInput.name = "new_content";
-                newContentInput.value = newContent;
-                form.appendChild(actionInput);
-                form.appendChild(cmtSeqInput);
-                form.appendChild(newContentInput);
-                document.body.appendChild(form);
-                form.submit();
+            if (loginMember) {
+                const newContent = prompt("댓글을 수정해주세요:", cmtContent);
+
+                if (newContent !== null) {
+                    // 서블릿으로 수정 요청을 보내는 코드 추가
+                    const encodedNewContent = encodeURIComponent(newContent);
+                    const form = document.createElement("form");
+                    form.method = "POST";
+                    form.action = "newscmtCon";
+                    const actionInput = document.createElement("input");
+                    actionInput.type = "hidden";
+                    actionInput.name = "action";
+                    actionInput.value = "updateComment";
+                    const cmtSeqInput = document.createElement("input");
+                    cmtSeqInput.type = "hidden";
+                    cmtSeqInput.name = "cmt_seq";
+                    cmtSeqInput.value = cmtSeq;
+                    const newContentInput = document.createElement("input");
+                    newContentInput.type = "hidden";
+                    newContentInput.name = "new_content";
+                    newContentInput.value = newContent;
+                    const loginMemberInput = document.createElement("input");
+                    loginMemberInput.type = "hidden";
+                    loginMemberInput.name = "id";
+                    loginMemberInput.value = loginMember;
+                    form.appendChild(actionInput);
+                    form.appendChild(cmtSeqInput);
+                    form.appendChild(newContentInput);
+                    form.appendChild(loginMemberInput); // 사용자 ID 추가
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            } else {
+                alert("로그인 후에 수정할 수 있습니다.");
             }
         });
     });
+
 
     deleteButtons.forEach(button => {
         button.addEventListener("click", () => {

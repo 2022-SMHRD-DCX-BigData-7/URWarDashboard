@@ -75,11 +75,14 @@ public class newscmtCon extends HttpServlet {
             if (comment != null && comment.getId().equals(id)) {
                 dao.updateComment(cmt_seq, newContent);
             } else {
-                response.sendRedirect("newsView.jsp?news_seq=" + comment.getNews_seq() + "&permissionError=true");
+            	System.out.println("comment"+comment);
+            	System.out.println("comment.getId()"+comment.getId());
+            	System.out.println("id"+id);
+                response.sendRedirect("news.nhn?action=getNews&NEWS_SEQ=" + comment.getNews_seq() + "&permissionError=true");
                 return;
             }
 
-            response.sendRedirect("newsView.jsp?news_seq=" + comment.getNews_seq());
+            response.sendRedirect("news.nhn?action=getNews&NEWS_SEQ=" + comment.getNews_seq());
         } catch (Exception e) {
             e.printStackTrace();
             // 처리 중에 예외 발생 시 적절한 예외 처리 로직 추가
@@ -96,11 +99,11 @@ public class newscmtCon extends HttpServlet {
             if (comment != null && comment.getId().equals(id)) {
                 dao.deleteComment(cmt_seq);
             } else {
-                response.sendRedirect("newsView.jsp?news_seq=" + comment.getNews_seq() + "&permissionError=true");
+                response.sendRedirect("news.nhn?action=getNews&NEWS_SEQ=" + comment.getNews_seq() + "&permissionError=true");
                 return;
             }
 
-            response.sendRedirect("newsView.jsp?news_seq=" + comment.getNews_seq());
+            response.sendRedirect("news.nhn?action=getNews&NEWS_SEQ=" + comment.getNews_seq());
         } catch (Exception e) {
             e.printStackTrace();
             // 처리 중에 예외 발생 시 적절한 예외 처리 로직 추가
