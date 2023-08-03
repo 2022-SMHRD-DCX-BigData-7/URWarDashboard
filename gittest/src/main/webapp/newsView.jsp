@@ -379,25 +379,31 @@
     deleteButtons.forEach(button => {
         button.addEventListener("click", () => {
             const cmtSeq = button.getAttribute("data-cmtseq");
-            const confirmDelete = confirm("정말 삭제하시겠습니까?");
+            const loginMember = "${sessionScope.loginMember}"; // JSP 코드로 세션에 저장된 사용자 ID 가져오기
 
-            if (confirmDelete) {
-                // 서블릿으로 삭제 요청을 보내는 코드 추가
-                const form = document.createElement("form");
-                form.method = "POST";
-                form.action = "newscmtCon";
-                const actionInput = document.createElement("input");
-                actionInput.type = "hidden";
-                actionInput.name = "action";
-                actionInput.value = "deleteComment";
-                const cmtSeqInput = document.createElement("input");
-                cmtSeqInput.type = "hidden";
-                cmtSeqInput.name = "cmt_seq";
-                cmtSeqInput.value = cmtSeq;
-                form.appendChild(actionInput);
-                form.appendChild(cmtSeqInput);
-                document.body.appendChild(form);
-                form.submit();
+            if (loginMember) {
+                const confirmDelete = confirm("정말 삭제하시겠습니까?");
+
+                if (confirmDelete) {
+                    // 서블릿으로 삭제 요청을 보내는 코드 추가
+                    const form = document.createElement("form");
+                    form.method = "POST";
+                    form.action = "newscmtCon";
+                    const actionInput = document.createElement("input");
+                    actionInput.type = "hidden";
+                    actionInput.name = "action";
+                    actionInput.value = "deleteComment";
+                    const cmtSeqInput = document.createElement("input");
+                    cmtSeqInput.type = "hidden";
+                    cmtSeqInput.name = "cmt_seq";
+                    cmtSeqInput.value = cmtSeq;
+                    form.appendChild(actionInput);
+                    form.appendChild(cmtSeqInput);
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            } else {
+                alert("로그인 후에 삭제할 수 있습니다.");
             }
         });
     });

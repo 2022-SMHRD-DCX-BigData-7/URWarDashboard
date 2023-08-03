@@ -10,7 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.smhrd.domain.member;
 import com.smhrd.domain.newscmt;
 import com.smhrd.domain.newscmtDAO;
 
@@ -19,6 +21,7 @@ public class newscmtCon extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
 
         if (action == null) {
@@ -68,8 +71,10 @@ public class newscmtCon extends HttpServlet {
     private void updateComment(HttpServletRequest request, HttpServletResponse response, newscmtDAO dao) throws IOException {
         int cmt_seq = Integer.parseInt(request.getParameter("cmt_seq"));
         String newContent = request.getParameter("new_content");
-        String id = request.getParameter("id");
-
+        HttpSession session = request.getSession();
+        member loginMember = null;
+        loginMember = (member)session.getAttribute("loginMember");
+        String id = loginMember.getId();
         try (Connection conn = dao.open()) {
             newscmt comment = dao.getCommentBySeq(cmt_seq);
             if (comment != null && comment.getId().equals(id)) {
@@ -78,6 +83,7 @@ public class newscmtCon extends HttpServlet {
             	System.out.println("comment"+comment);
             	System.out.println("comment.getId(): "+comment.getId());
             	System.out.println("id: "+id);
+    	
                 response.sendRedirect("news.nhn?action=getNews&NEWS_SEQ=" + comment.getNews_seq() + "&permissionError=true");
                 return;
             }
@@ -92,7 +98,11 @@ public class newscmtCon extends HttpServlet {
     // 댓글 삭제 동작을 처리하는 메서드
     private void deleteComment(HttpServletRequest request, HttpServletResponse response, newscmtDAO dao) throws IOException {
         int cmt_seq = Integer.parseInt(request.getParameter("cmt_seq"));
-        String id = request.getParameter("id");
+        String newContent = request.getParameter("new_content");
+        HttpSession session = request.getSession();
+        member loginMember = null;
+        loginMember = (member)session.getAttribute("loginMember");
+        String id = loginMember.getId();
 
         try (Connection conn = dao.open()) {
             newscmt comment = dao.getCommentBySeq(cmt_seq);
