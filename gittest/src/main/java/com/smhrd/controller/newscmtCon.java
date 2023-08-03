@@ -76,8 +76,8 @@ public class newscmtCon extends HttpServlet {
                 dao.updateComment(cmt_seq, newContent);
             } else {
             	System.out.println("comment"+comment);
-            	System.out.println("comment.getId()"+comment.getId());
-            	System.out.println("id"+id);
+            	System.out.println("comment.getId(): "+comment.getId());
+            	System.out.println("id: "+id);
                 response.sendRedirect("news.nhn?action=getNews&NEWS_SEQ=" + comment.getNews_seq() + "&permissionError=true");
                 return;
             }
