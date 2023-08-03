@@ -13,7 +13,7 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-<meta charset="UTF-8">
+
 <title>전참시 메인 페이지</title>
 <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
