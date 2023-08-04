@@ -6,6 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
+
+import javax.naming.spi.DirStateFactory.Result;
+
 import java.util.*;
 
 public class WebBoardDAO {
@@ -23,7 +27,7 @@ public class WebBoardDAO {
 
 	            String JDBC_Password = "smhrd2";
 
-	            Class.forName("JDBC_DRIVER");
+	            Class.forName("oracle.jdbc.driver.OracleDriver");
 
 	            conn = DriverManager.getConnection(JDBC_URL, JDBC_ID, JDBC_Password);
 
@@ -36,18 +40,18 @@ public class WebBoardDAO {
 	 
 
 	    // 현재시간가져오는것
-	    public String getDate() {
-	        String SQL = "SELECT NOW()";
+	    public Date getCREATE_AT() {
+	        String SQL = "SELECT sysdate from dual";
 	        try {
-	            PreparedStatement pstmt = conn.prepareStatement(SQL); //conn객체를 이용 SQL문장을 실행준비로 만듬
+	            PreparedStatement pstmt = conn.prepareStatement(SQL); 
 	            rs = pstmt.executeQuery();
 	            if (rs.next()) {
-	                return rs.getString(1); //1을해서 현재날짜 그대로 반환
+	                return rs.getDate(1); //1을해서 현재날짜 그대로 반환
 	            }
 	        } catch(Exception e) {
 	            e.printStackTrace();
 	        }
-	        return ""; //데이터베이스오류
+	        return null; //데이터베이스오류
 	    }
 
 	 
@@ -72,13 +76,13 @@ public class WebBoardDAO {
 
 	    // 글쓰기 기능
 	    public int write(String WB_TITLE, String WB_CONTENT, String ID)  {
-	        String SQL = "INSERT INTO TB_WEBBOARD VALUES(?, ?, ?, ?)";
+	        String SQL = "INSERT INTO TB_WEBBOARD (WB_SEQ,WB_TITLE,WB_CONTENT,ID,WB_VIEWS,WB_LIKES,CREATED_AT) VALUES(TB_WEBBOARD__SEQ.nextval,?,?,?,0,0,SYSDATE)";
+	        
 	        try {
 	            PreparedStatement pstmt = conn.prepareStatement(SQL); 
-	            pstmt.setInt(1, getNext()); // 다음번에 쓰게될 게시물번호
-	            pstmt.setString(2, WB_TITLE);
-	            pstmt.setString(3, WB_CONTENT);
-	            pstmt.setString(4, ID);
+	            pstmt.setString(1, WB_TITLE);
+	            pstmt.setString(2, WB_CONTENT);
+	            pstmt.setString(3, ID);
 	            return pstmt.executeUpdate();
 	            
 	        } catch(Exception e) {
@@ -87,10 +91,23 @@ public class WebBoardDAO {
 	        return -1; //데이터베이스오류
 	    }
 	    
+	    public int getall() {
+	    	String SQL = "select count(wb_seq) from TB_WebBoard";
+	    	 try {
+		    	    PreparedStatement pstmt = conn.prepareStatement(SQL);
+		            rs = pstmt.executeQuery();
+		            if (rs.next()) {
+		                return rs.getInt(1);
+		            }
+		        } catch(Exception e) {
+		            e.printStackTrace();
+		        }
+		        return 1;
+	    }
 	    
 	    // 게시글 리스트
 	    public ArrayList<WebBoard> getList(int pageNumber) {
-	    	 String SQL = "select * from WebBoard where WB_SEQ <? and WB_SEQ = 1 order by WB_SEQ desc limit 10";
+	    	 String SQL = "select * from (select * from TB_WebBoard where WB_SEQ <? order by WB_SEQ desc) where  ROWNUM <= 10";
 	        ArrayList<WebBoard> list = new ArrayList<WebBoard>(); 
 	        try {
 	        	PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -104,7 +121,7 @@ public class WebBoardDAO {
 	            	TB_WEBBOARD.setWB_FILE(rs.getString(4));
 	            	TB_WEBBOARD.setWB_VIEWS(rs.getInt(5));
 	            	TB_WEBBOARD.setWB_LIKES(rs.getInt(6));
-	            	TB_WEBBOARD.setCREATED_AT(rs.getString(7));
+	            	TB_WEBBOARD.setCREATED_AT(rs.getDate(7));
 	            	TB_WEBBOARD.setID(rs.getString(8));
 	                list.add(TB_WEBBOARD);
 	            }
@@ -118,9 +135,10 @@ public class WebBoardDAO {
 
 	    // 페이징 처리 함수
 	    public boolean nextPage(int pageNumber) {
-	    		String SQL = "select * from WebBoard where WB_SEQ <? and WB_SEQ = 1";
+	    		String SQL = "select * from TB_WebBoard where WB_SEQ <? and ROWNUM <= 10  order by WB_SEQ desc";
 	       try {
 	    	    PreparedStatement pstmt = conn.prepareStatement(SQL);
+	    	    System.out.println("dao"+getNext());
 	            pstmt.setInt(1, getNext() - (pageNumber -1 ) * 10);
 	            rs = pstmt.executeQuery();
 	            if (rs.next()) {
@@ -136,7 +154,7 @@ public class WebBoardDAO {
 
 	    // 글상세보기 기능    
 	    public WebBoard getWebBoard(int WB_SEQ) {
-	    	String SQL = "SELECT * FROM WebBoard WHERE WB_SEQ = ?";
+	    	String SQL = "select * from TB_WebBoard where WB_SEQ = ?";
 	    	ArrayList<WebBoard>list = new ArrayList<WebBoard>();
 		       try {
 		    	    PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -152,7 +170,7 @@ public class WebBoardDAO {
 		            	int WB_VIEWS =rs.getInt(6);
 		                TB_WEBBOARD.setWB_VIEWS(WB_VIEWS);
 		                WB_VIEWS++;
-		            	TB_WEBBOARD.setCREATED_AT(rs.getString(7));
+		            	TB_WEBBOARD.setCREATED_AT(rs.getDate(7));
 		            	TB_WEBBOARD.setID(rs.getString(8));
 		                return TB_WEBBOARD;
 		            }

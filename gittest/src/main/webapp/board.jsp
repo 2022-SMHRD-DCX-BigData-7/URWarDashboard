@@ -5,6 +5,7 @@
 <%@ page import="com.smhrd.domain.WebBoard" %>
 <%@ page import="com.smhrd.domain.WebBoardDAO" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Date" %>
 
 <!DOCTYPE html>
 <html>
@@ -270,17 +271,7 @@
 
 <!-- board section -->
 
-<%
-    String ID = null;
-    if(session.getAttribute("ID") != null) {
-        ID = (String) session.getAttribute("ID"); //로그인한 사람들은 해당아이디가 userID에 저장
-    }
-    
-    int pageNumber=1;
-	if(request.getParameter("pageNumber")!=null){
-		pageNumber=Integer.parseInt(request.getParameter("pageNumber"));
-	}
-%>
+
 <div class = "container">
         <div class="row">
             <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
@@ -291,25 +282,32 @@
                         <th style="background-color: #eeeeee; text-align: center;">작성내용</th>
                         <th style="background-color: #eeeeee; text-align: center;">등록일자</th>
                         <th style="background-color: #eeeeee; text-align: center;">작성자</th>
-                        <th style="background-color: #eeeeee; text-align: center;">조회수</th>
                         <th style="background-color: #eeeeee; text-align: center;">좋아요</th>
                     </tr>
                 </thead>
                 <tbody>
                 	 <%
                         WebBoardDAO WebBoardDAO = new WebBoardDAO(); //게시글을 뽑아올 수 있도록 인스턴스생성
+                        int cnt = WebBoardDAO.getall();
+                        System.out.print(cnt);
+                        int pageNumber=1;
+                    	if(request.getParameter("pageNumber")!=null){
+                    		pageNumber=Integer.parseInt(request.getParameter("pageNumber"));
+                    	}
                         ArrayList<WebBoard> list = WebBoardDAO.getList(pageNumber);
-                        for(int i = 0; i < list.size(); i++) { // 모든 게시글 불러옴
+                        for(int i=0; i<list.size(); i++) { // 모든 게시글 불러옴
                     %>
                     <tr>
-                        <td><%= list.get(i).getWB_SEQ() %></td> 
-                        <!-- 제목을 눌렀을때 해당 게시물로 이동, 해당번호에 맞는 페이지 나올 수 있게 -->
+                        <td><%= list.get(i).getWB_SEQ() %></td>
                         <td><a href="view.jsp?WB_SEQ=<%= list.get(i).getWB_SEQ() %>"><%= list.get(i).getWB_TITLE() %></a>
                         </td>
-                        <td><%= list.get(i).getID() %></td>
-                        <td><%= list.get(i).getCREATED_AT().substring(0, 11) %></td>
-                        <td><%=list.get(i).getWB_VIEWS()%></td>
-                        <th style="background-color: #2e8b57; text-align: center;">추천수👍</th> 
+                        <td><%= list.get(i).getWB_CONTENT() %></td>
+                        <% Date day = list.get(i).getCREATED_AT();
+                        	String day2 = day.toString();
+                        %>
+                         <td><%=day2  %></td> 
+                         <td><%= list.get(i).getID()%></td>
+                        <th style="background-color: #eeeeee; text-align: center;">추천수👍</th> 
                     </tr>
                     <%
                         }
@@ -358,6 +356,7 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
   </script>
   <!-- bootstrap js -->
+  
   <script src="js/bootstrap.js"></script>
   <!-- owl slider -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">

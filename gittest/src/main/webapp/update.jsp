@@ -245,6 +245,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                    
                         <tr>
                             <td><input type="text" class="form-control" placeholder="글 제목" name="WB_TITLE" maxlength="600" value="<%=WebBoard.getWB_TITLE() %>"></td>
                         </tr>

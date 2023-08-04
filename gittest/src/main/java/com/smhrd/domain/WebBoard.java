@@ -1,5 +1,7 @@
 package com.smhrd.domain;
 
+import java.util.Date;
+
 public class WebBoard {
 	private int WB_SEQ;
 	private String WB_TITLE;
@@ -7,7 +9,7 @@ public class WebBoard {
 	private String WB_FILE;
 	private int WB_VIEWS;
 	private int WB_LIKES;
-	private String CREATED_AT;
+	private Date CREATED_AT;
 	private String ID;
 	
 	
@@ -47,10 +49,10 @@ public class WebBoard {
 	public void setWB_LIKES(int wB_LIKES) {
 		WB_LIKES = wB_LIKES;
 	}
-	public String getCREATED_AT() {
+	public Date getCREATED_AT() {
 		return CREATED_AT;
 	}
-	public void setCREATED_AT(String cREATED_AT) {
+	public void setCREATED_AT(Date cREATED_AT) {
 		CREATED_AT = cREATED_AT;
 	}
 	public String getID() {

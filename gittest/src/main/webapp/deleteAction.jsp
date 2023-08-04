@@ -20,7 +20,7 @@
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('로그인을 하세요.')");
-            script.println("location.href = 'kakaologin.html'");
+            script.println("location.href = 'LoginCon.java");
             script.println("</script>");
         } 
 

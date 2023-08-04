@@ -1,9 +1,12 @@
+<%@page import="com.smhrd.domain.member"%>
 <%@page import="oracle.security.crypto.core.Padding.ID"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.smhrd.domain.WebBoardDAO" %> <!-- bbs 데이터베이스 접근 객체 -->
+<%@ page import="com.smhrd.domain.WebBoardDAO" %>
+<%@ page import="com.smhrd.domain.memberDAO" %> 
 <%@ page import="java.io.PrintWriter" %>
 <% request.setCharacterEncoding("UTF-8"); %>
+
 <jsp:useBean id="WebBoard" class="com.smhrd.domain.WebBoard" scope="page" />
 <jsp:setProperty name="WebBoard" property="WB_TITLE" />
 <jsp:setProperty name="WebBoard" property="WB_CONTENT" />
@@ -41,40 +44,48 @@
 </head>
 <body>
 <%
-        String ID = null;
-        if(session.getAttribute("ID") != null) { //user가 접속이 되어있다면 세션값이 할당되어 있다면
-            ID = (String) session.getAttribute("ID");
+		member loginMember = null;
+		String WB_TITLE = request.getParameter("WB_TITLE");
+		String WB_CONTENT = request.getParameter("WB_CONTENT");
+			if (session.getAttribute("loginMember") != null) {
+				loginMember = (member)session.getAttribute("loginMember");
+				
+
+	            if (WB_TITLE == null || WB_CONTENT == null) {
+	            	System.out.print("WB_TITLE"+WB_TITLE+"WB_CONTENT"+WB_CONTENT);
+	                	PrintWriter script = response.getWriter();
+	                	script.println("<script>");
+	                	script.println("alert('입력이 안 된 사항이 있습니다.')");
+	                	script.println("history.back()");
+	                	script.println("</script>");
+	            } else {
+	            	WebBoardDAO WebBoardDAO = new WebBoardDAO();
+	                int result = WebBoardDAO.write(WB_TITLE, WB_CONTENT,loginMember.getId());
+	                if (result == -1) { // -1일 경우 데이터베이스 오류
+	                    PrintWriter script = response.getWriter();
+	                    script.println("<script>");
+	                    script.println("alert('글쓰기에 실패했습니다.')");
+	                    script.println("history.back()");
+	                    script.println("</script>");
+	                } else { // 입력성공
+	                    PrintWriter script = response.getWriter();
+	                    script.println("<script>");
+	                    script.println("location.href = 'board.jsp'");
+	                    script.println("</script>");
+	                }
+	        }
+				}
+			
+			
+    		if(loginMember==null)  { //로그인 안되있으면 로그인하라고 안내
+            		PrintWriter script = response.getWriter();
+            		script.println("<script>");
+            		script.println("alert('로그인을 하세요.')");
+            		script.println("location.href = 'LoginCon'");
+            		script.println("</script>");
         } 
-        if (ID == null) { //로그인 안되있으면 로그인하라고 안내
-            PrintWriter script = response.getWriter();
-            script.println("<script>");
-            script.println("alert('로그인을 하세요.')");
-            script.println("location.href = 'kakaologin.html'");
-            script.println("</script>");
-        } else { // 로그인이 되어있는 사람을 넘김
-            if (WebBoard.getWB_TITLE() == null || WebBoard.getWB_CONTENT() == null) {
-                PrintWriter script = response.getWriter();
-                script.println("<script>");
-                script.println("alert('입력이 안 된 사항이 있습니다.')");
-                script.println("history.back()");
-                script.println("</script>");
-            } else {
-            	WebBoardDAO WebBoardDAO = new WebBoardDAO();
-                int result = WebBoardDAO.write(WebBoard.getWB_TITLE(), ID, WebBoard.getWB_CONTENT());
-                if (result == -1) { // -1일 경우 데이터베이스 오류
-                    PrintWriter script = response.getWriter();
-                    script.println("<script>");
-                    script.println("alert('글쓰기에 실패했습니다.')");
-                    script.println("history.back()");
-                    script.println("</script>");
-                } else { // 입력성공
-                    PrintWriter script = response.getWriter();
-                    script.println("<script>");
-                    script.println("location.href = 'board.jsp'");
-                    script.println("</script>");
-                }
-        }
-}
+
+
 %>
   
   
