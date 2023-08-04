@@ -22,35 +22,7 @@
   <meta name="author" content="" />
 
 
-<style>
-/* 본문 CSS */
-div.donate_list{
-	margin-left:40px; 
-	margin-bottom:30px;
-}
-div.banner{ 
-	float: left; 
-	width: 500px; 
-	height: 300px; 
-	margin-top: 30px;
-	margin-bottom: 30px;
-	margin-left: 10px;
-	margin-right: 10px;
-	border: 0.5px solid gray;
-	text-align: center; 
-	font-size:20px;
-}
-div.banner a{
-	text-decoration: none;
-	}
-div.banner p{
-	color: #2b2b2b;
-}
-</style>
-
-  <title>전참시</title>
-
-
+  <title>전참시</title>  
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 
@@ -74,6 +46,9 @@ div.banner p{
 	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="css/l_style.css"> <!-- Resource style -->
 	<link rel="stylesheet" href="css/demo.css"> <!-- Demo style -->
+  
+  <!--본문 css  -->
+  <link href="css/donate.css" rel="stylesheet" />
 
 </head>
 
@@ -303,12 +278,19 @@ div.banner p{
   </div>
   <!-- donation section -->
   	<br>
-	<h1 style="text-align : center; font-size: 40px; color : #DC143C; font-weight:bold"> 여전히 우크라이나는 전쟁중입니다</h1>
-	<br><br>
-	<h1 style="text-align : center; font-size: 18px; color : black;">
-	아무리 시대가 최첨단의 시대를 달려가도 지상전은 여전히 존재하고 전쟁의 피해는 고스란히 힘겨운 사람들의 몫으로 남습니다.<br>
-	우크라이나 전쟁난민이 여기저기 있습니다. 함께나누는세상은 우크라이나 전쟁난민을 위해 보온물병을 지원하였습니다.<br> 
-	앞으로 더욱 많은 사람들에게 다양한 생필품을 지원할 수 있도록 여러분의 도움을 부탁드립니다.</h1>
+  	<div class="img-wrap">
+  		<div class="img">
+  		<img src="https://d2k5miyk6y5zf0.cloudfront.net/article/MYH/20220603/MYH20220603013100038.jpg">
+  		</div>
+  		<div class="txt">
+		<h1 class="redtext"> 여전히 우크라이나는 전쟁중입니다</h1>
+		<br><br>
+		<h1 class="whitetext">
+		아무리 시대가 최첨단의 시대를 달려가도 지상전은 여전히 존재하고 전쟁의 피해는 고스란히 힘겨운 사람들의 몫으로 남습니다.<br>
+		우크라이나 전쟁난민이 여기저기 있습니다. 함께나누는세상은 우크라이나 전쟁난민을 위해 보온물병을 지원하였습니다.<br> 
+		앞으로 더욱 많은 사람들에게 다양한 생필품을 지원할 수 있도록 여러분의 도움을 부탁드립니다.</h1>
+		</div>
+	</div>
 
 	<div style="overflow: auto;" class="donate_list">
 		<div class="banner">
