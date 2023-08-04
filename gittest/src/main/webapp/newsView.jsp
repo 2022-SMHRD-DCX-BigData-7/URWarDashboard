@@ -236,6 +236,8 @@
 		<span style="font-size: 15px" class="text-muted fst-italic mb-2">${news.NEWS_PRESS}</span>
 		<div></div>
 		<span style="font-size: 15px" class="text-muted fst-italic mb-2">${news.NEWS_TAG}</span>
+		<br>
+		<span style="font-size: 15px" class="text-muted fst-italic mb-2">키워드: ${news.NEWS_KEYWORD}</span>
 		<hr>
 		<section class="mb-5">
 			

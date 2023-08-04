@@ -25,7 +25,7 @@ public class NewsDAO {
 	public void addNews(News n) throws Exception {
 	    Connection conn = open();
 
-	    String sql = "INSERT INTO TB_NEWS(NEWS_SEQ, NEWS_TITLE, NEWS_CONTENT, NEWS_PRESS, NEWS_AT, NEWS_PIC, NEWS_TAG) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	    String sql = "INSERT INTO TB_NEWS(NEWS_SEQ, NEWS_TITLE, NEWS_CONTENT, NEWS_PRESS, NEWS_AT, NEWS_PIC, NEWS_TAG, NEWS_KEYWORD) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	    PreparedStatement pstmt = conn.prepareStatement(sql);
 
 	    try {
@@ -142,7 +142,7 @@ public class NewsDAO {
 	public News getNews(int NEWS_SEQ) throws SQLException {
 	    Connection conn = open();
 	    News n = new News();
-	    String sql = "SELECT NEWS_SEQ, NEWS_TITLE, NEWS_CONTENT, NEWS_PRESS, NEWS_AT, NEWS_PIC, NEWS_TAG  FROM TB_NEWS WHERE NEWS_SEQ=?";
+	    String sql = "SELECT NEWS_SEQ, NEWS_TITLE, NEWS_CONTENT, NEWS_PRESS, NEWS_AT, NEWS_PIC, NEWS_TAG, NEWS_KEYWORD  FROM TB_NEWS WHERE NEWS_SEQ=?";
 	    PreparedStatement pstmt = conn.prepareStatement(sql);
 	    pstmt.setInt(1, NEWS_SEQ);
 	    ResultSet rs = pstmt.executeQuery();
@@ -156,6 +156,7 @@ public class NewsDAO {
 	            n.setNEWS_AT(rs.getString("NEWS_AT"));
 	            n.setNEWS_PIC(rs.getString("NEWS_PIC"));
 	            n.setNEWS_TAG(rs.getString("NEWS_TAG"));
+	            n.setNEWS_KEYWORD(rs.getString("NEWS_KEYWORD"));
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();

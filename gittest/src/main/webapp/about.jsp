@@ -374,6 +374,7 @@
     <button id="wordButton" style="width: 33.333%; height: 100%; float: right">워드클라우드</button>
 </div>
 
+
 <div id="iframeContainer" style="height: 500px; width: 80%; display: none; margin: auto;">
     <iframe id="myIframe" src="news_count.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
 </div>
@@ -385,6 +386,14 @@
 <div id="imgContainer" style="height: 500px; width: 80%; display: none; margin: auto;">
     <iframe id="myIframe3" src="wordcloud.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
 </div>
+
+<div id="insightContainer" style="height: 500px; width: 80%;  margin: auto;">
+    <iframe id="myIframe4" src="insight.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
+</div>
+
+
+
+
 
           <!-- 뉴스 통계 끝 -->
   
