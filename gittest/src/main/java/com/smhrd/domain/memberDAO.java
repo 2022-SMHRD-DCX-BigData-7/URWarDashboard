@@ -12,21 +12,6 @@ public class memberDAO {
 	SqlSessionFactory sqlSessionFactory = SqlSessionManager.getSqlSession();
 	SqlSession sqlSession = sqlSessionFactory.openSession();
 	
-	// 아이디 중복조회 기능 구현
-	public member idselectMember(member id) {
-		member idselectMember = null;
-		try {
-			idselectMember = sqlSession.selectOne("idselectMember",id);
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			sqlSession.close();
-		}
-		
-		return idselectMember;
-	}
-	
 	
 	// 회원가입 기능 구현
 	public int insertMember(member joinMember) {
@@ -66,6 +51,19 @@ public class memberDAO {
 		return loginMember;
 	}// selectMember 메소드 끝
 	
+	public member idselectMember(member mid) {
+		member duplicate = null;
+		try {
+			duplicate = sqlSession.selectOne("idselectMember",mid);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sqlSession.close();
+		}
+		
+		return duplicate;
+	}
 	
 	// 회원정보수정 기능 구현
 	public int updateMember(member update) {
@@ -126,22 +124,7 @@ public class memberDAO {
 		return cnt;
 }
 	
-// 아이디 조회 기능
-	public String idsearchMember(member search_id) {
-		String idsearchMember = null;
-		
-		try {
-			idsearchMember = sqlSession.selectOne("search_id");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			sqlSession.close();
-		}
-		
-		return idsearchMember;
-	} 
-	
-	
+
 // 비밀번호 조회 기능
 	public String pwsearchMember(member search_pw) {
 		String pwsearchMember = null;

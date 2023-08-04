@@ -14,7 +14,7 @@
 	 	insert into tb_userinfo values (#{id},#{pw},#{username},#{email})
 	 </insert>
 	 
-	 <select id="idselectMember" parameterType="com.smhrd.domain.member"
+	 <select id="idselectMember" parameterType="String"
 	 	resultType="com.smhrd.domain.member">
 	 select id from tb_userinfo where id = #{id}
 	 </select>

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.smhrd.domain.idcheck;
+import com.smhrd.domain.idcheckDAO;
 import com.smhrd.domain.member;
 import com.smhrd.domain.memberDAO;
 
@@ -27,18 +29,11 @@ public class IdSearchCon extends HttpServlet {
 		String email = request.getParameter("search_email");
 		
 		// 2. member객체에 담아주기
-		member search_id = new member(username,email);
+		idcheck search_id = new idcheck(username,email);
 		
-		// 받아온 값 확인
-		
-		System.out.println(search_id.toString());
-		
-		
-		// 3-1. DAO 메소드 만들기, xml에 SQL문 작성
-		// 3-2. DAO 객체 생성
-		memberDAO dao = new memberDAO();
-		// 3-3. DAO 메소드 호출 --> member객체에 결과값 담기
-		String idsearch = dao.idsearchMember(search_id);
+		idcheckDAO dao = new idcheckDAO();
+		idcheck idsearch = dao.idsearchMember(search_id);
+		System.out.println(idsearch);
 		
 		
 		// 4. 명령 후 처리

@@ -1,3 +1,4 @@
+<%@page import="com.smhrd.domain.memberDAO"%>
 <%@page import="com.smhrd.domain.member"%>
 <%@page import="com.smhrd.domain.News"%>
 <%@page import="java.util.List"%>
@@ -98,7 +99,8 @@
              <%
 	member loginMember = null;
 	if (session.getAttribute("loginMember") != null) {
-  	loginMember = (member)session.getAttribute("loginMember");}
+  	loginMember = (member)session.getAttribute("loginMember");
+  	}
 %>
 <% if(loginMember==null) {%>
 <!--login section -->
@@ -115,7 +117,7 @@
           <li><a href="#0" data-signin="login" data-type="login">로그인</a></li>
           <li><a href="#0" data-signin="signup" data-type="signup">회원가입</a></li>
         </ul>
-  
+  <!-- 로그인 -->
         <div class="cd-signin-modal__block js-signin-modal-block" data-type="login"> <!-- log in form -->
           <form class="cd-signin-modal__form" action="LoginCon" method="post">
             <p class="cd-signin-modal__fieldset">
@@ -129,31 +131,59 @@
               <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signin-password" name="signin_pw" type="text"  placeholder="Password">
               <a href="#0" class="cd-signin-modal__hide-password js-hide-password">Hide</a>
               <span class="cd-signin-modal__error">Error message here!</span>
-            </p>
-  
-            <p class="cd-signin-modal__fieldset">
-              <input type="checkbox" id="remember-me" checked class="cd-signin-modal__input ">
-              <label for="remember-me">Remember me</label>
-            </p>
+            </p>	
   
             <p class="cd-signin-modal__fieldset">
               <input class="cd-signin-modal__input cd-signin-modal__input--full-width" type="submit" value="로그인">
             </p>
           </form>
           
-          <p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="reset">비밀번호를 잊어버리셨나요??</a></p>
+          <p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="search-id">아이디 / </a><a href="#0" data-signin="search-pw">비밀번호를 잊어버리셨나요?</a></p>
         </div> <!-- cd-signin-modal__block -->
-  
-        <div class="cd-signin-modal__block js-signin-modal-block" data-type="signup"> <!-- sign up form -->
+        
+	<!-- 회원가입 -->
+        <div class="cd-signin-modal__block js-signin-modal-block" data-type="signup" name="signup"> <!-- sign up form -->
           <form class="cd-signin-modal__form" action="JoinCon" method="post">
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-id">ID</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-id" name="signup_id" type="text" placeholder="ID"  onchange="joinform_check()">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-id" name="signup_id" type="text" placeholder="ID" >
+              
+              <a href="javascript:alert('<%
+            		  
+            		request.setCharacterEncoding("UTF-8");
+            		String id = request.getParameter("signup_id");
+            		
+            		member mid = new member(id);
+            		memberDAO mdao = new memberDAO();
+            		member duplicate = mdao.idselectMember(mid);
+            		System.out.print(id);
+              		 
+              		if(duplicate==null){
+              			out.print("사용 가능한 아이디 입니다.");
+          		  }else{out.print("사용 불가능한 아이디 입니다. 다른 아이디를 입력해 주십시오.");}
+            		  
+            		  
+            		  %>');" 
+              style="display: inline-block;
+    				position: absolute;
+    				right: 0;
+				    top: 0;
+				    padding: 6px 15px;
+				    border-left: 1px solid #d2d8d8;
+				    top: 50%;
+				    bottom: auto;
+				    -webkit-transform: translateY(-50%);
+				    -ms-transform: translateY(-50%);
+				    transform: translateY(-50%);
+				    font-size: 1.4rem;
+				    color: #343642;"
+              >중복확인</a>
               
               <!-- id check start -->
          
              <!-- id check end -->
               <span class="cd-signin-modal__error">Error message here!</span>
+              
             </p>
             
   
@@ -176,10 +206,6 @@
               <span class="cd-signin-modal__error">Error message here!</span>
             </p>
   
-            <p class="cd-signin-modal__fieldset">
-              <input type="checkbox" id="accept-terms" class="cd-signin-modal__input ">
-              <label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
-            </p>
   
             <p class="cd-signin-modal__fieldset">
               <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit"  value="회원가입">
@@ -187,18 +213,59 @@
           </form>
         </div> <!-- cd-signin-modal__block -->
   
-        <div class="cd-signin-modal__block js-signin-modal-block" data-type="reset"> <!-- reset password form -->
-          <p class="cd-signin-modal__message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
+  <!-- 아이디 검색  -->
   
-          <form class="cd-signin-modal__form">
+        <div class="cd-signin-modal__block js-signin-modal-block" data-type="search-id"> <!-- reset password form -->
+          <p class="cd-signin-modal__message">사용자의 이름과 이메일 주소를 입력하여 주십시오.</p>
+  
+          <form class="cd-signin-modal__form" action="IdSearchCon" method="post">
+
             <p class="cd-signin-modal__fieldset">
-              <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="reset-email">E-mail</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="reset-email" type="email" placeholder="E-mail">
+              <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="search-username">Username</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-username" name="search_username" type="text" placeholder="Username">
+              <span class="cd-signin-modal__error">Error message here!</span>
+            </p>
+            
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="search-email">E-mail</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" name="search_email" type="email" placeholder="E-mail">
               <span class="cd-signin-modal__error">Error message here!</span>
             </p>
   
             <p class="cd-signin-modal__fieldset">
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit" value="Reset password">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit" value="아이디 찾기">
+            </p>
+          </form>
+          <p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="login">다시 로그인 페이지로</a></p>
+        </div> <!-- cd-signin-modal__block -->
+         
+         <!--비밀번호 검색  -->
+          
+          <div class="cd-signin-modal__block js-signin-modal-block" data-type="search-pw"> <!-- reset password form -->
+          <p class="cd-signin-modal__message">사용자의 아이디와 이름, 이메일 주소를 입력하여 주십시오.</p>
+  
+          <form class="cd-signin-modal__form" action="PwSearchCon" method="post">
+            
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-id">ID</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-id" name="search_id" type="text" placeholder="ID" >
+              <span class="cd-signin-modal__error">Error message here!</span>
+            </p>
+
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-username">Username</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-username" name="search_username" type="text" placeholder="Username">
+              <span class="cd-signin-modal__error">Error message here!</span>
+            </p>
+            
+            <p class="cd-signin-modal__fieldset">
+              <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="signup-email">E-mail</label>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" name="search_email" type="email" placeholder="E-mail">
+              <span class="cd-signin-modal__error">Error message here!</span>
+            </p>
+  
+            <p class="cd-signin-modal__fieldset">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit" value="비밀번호 찾기">
             </p>
           </form>
   
@@ -207,54 +274,81 @@
         <a href="#0" class="cd-signin-modal__close js-close">Close</a>
       </div> <!-- cd-signin-modal__container -->
     </div> <!-- cd-signin-modal -->
-<script src="js/placeholders.min.js"></script> <!-- polyfill for the HTML5 placeholder attribute -->
-<script src="js/main.js"></script> <!-- Resource JavaScript -->
   
 <!-- login section end -->
 <%}else {%> 
- 	<nav class="cd-main-nav js-main-nav">
+<nav class="cd-main-nav js-main-nav">
 	<ul class="cd-main-nav__list js-signin-modal-trigger">
 		<!-- inser more links here -->
-		<li><a class="cd-main-nav__item cd-main-nav__item--signin" href="LogoutCon" data-signin="login">로그아웃</a></li>
-		<li><a class="cd-main-nav__item cd-main-nav__item--signup" href = "#0" data-signin="signup">개인정보</a></li>
+		<li><a class="cd-main-nav__item cd-main-nav__item--signin" href="#0" data-signin="login">로그아웃</a></li>
+		<li><a class="cd-main-nav__item cd-main-nav__item--signup" href="#0" data-signin="signup">개인정보</a></li>
 	</ul>
-	<div class="cd-signin-modal js-signin-modal"> <!-- this is the entire modal form, including the background -->
+		</nav>
+    <div class="cd-signin-modal js-signin-modal"> <!-- this is the entire modal form, including the background -->
       <div class="cd-signin-modal__container"> <!-- this is the container wrapper -->
-          <a href="#0" data-signin="signup" data-type="signup">개인정보</a>
+        <ul class="cd-signin-modal__switcher js-signin-modal-switcher js-signin-modal-trigger">
+          <li><a href="#0" data-signin="login" data-type="login">로그아웃</a></li>
+          <li><a href="#0" data-signin="signup" data-type="signup">개인정보</a></li>
+        </ul>
+  
+        <div class="cd-signin-modal__block js-signin-modal-block" data-type="login"> <!-- log in form -->
+          <form class="cd-signin-modal__form" action="LogoutCon" method="post">
+  			<p align="center">
+            	<span>로그아웃 하시겠습니까?</span>
+            </p>
+            <p class="cd-signin-modal__fieldset">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width" type="submit" value="로그아웃">
+            </p>
+          </form>
+          
+        </div> <!-- cd-signin-modal__block -->
   
         <div class="cd-signin-modal__block js-signin-modal-block" data-type="signup"> <!-- sign up form -->
           <form class="cd-signin-modal__form" action="UpdateCon" method="post">
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-id">ID</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-id" name="update_id" type="text" readonly="readonly"placeholder="" >
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-id" name="update_id" type="text" readonly="readonly"
+              placeholder="<%
+            String id = loginMember.getId();
+            out.print(id); %>" >
+            
             </p>
             
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace" for="signup-password">Password</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-password" name="update_pw" type="text"  placeholder="Password">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-password" name="update_pw" type="text"  
+              placeholder="Password">
               <a href="#0" class="cd-signin-modal__hide-password js-hide-password">Hide</a>
             </p>
 
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-username">Username</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-username" name="update_username" type="text" placeholder="Username">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-username" name="update_username" type="text" 
+              placeholder="<%
+            String userid = loginMember.getUsername();
+            out.print(userid); %>" >
             </p>
             
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="signup-email">E-mail</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" name="update_email" type="email" placeholder="E-mail">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" name="update_email" type="email" 
+              placeholder="<%
+            String email = loginMember.getEmail();
+            out.print(email); %>" >
             </p>
   
             <p class="cd-signin-modal__fieldset">
               <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding" type="submit"  value="개인정보 수정">
             </p>
           </form>
+   <p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="reset">회원탈퇴</a></p>
+          
         </div> <!-- cd-signin-modal__block -->
   
         <div class="cd-signin-modal__block js-signin-modal-block" data-type="reset"> <!-- reset password form -->
           <p class="cd-signin-modal__message">회원 탈퇴를 하시겠습니까? 하단에 해당 회원의 비밀번호를 입력해주세요.</p>
   
-          <form class="cd-signin-modal__form">
+          <form class="cd-signin-modal__form" action="DeleteCon" method="post">
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="delete-password">Password</label>
               <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="delete-password"name="delete_password" type="password" placeholder="Password">
@@ -269,13 +363,8 @@
         <a href="#0" class="cd-signin-modal__close js-close">Close</a>
       </div> <!-- cd-signin-modal__container -->
     </div> <!-- cd-signin-modal --> 
-<%};%>
-            </div>
-          </nav>
-        </div>
-      </div>
-    </header>
-    <!-- end header section -->
+	
+<%}%>
             </div>
           </nav>
         </div>
@@ -447,7 +536,8 @@
   <script src="js/custom.js"></script>
   <!-- sejin js -->
   <script src="js/sejin.js"></script>
-
+<script src="./js/main.js"></script>
+     <script src="js/placeholders.min.js"></script>
 </body>
 
 </html>

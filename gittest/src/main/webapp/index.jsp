@@ -122,7 +122,7 @@
         </div> <!-- cd-signin-modal__block -->
         
 	<!-- 회원가입 -->
-        <div class="cd-signin-modal__block js-signin-modal-block" data-type="signup"> <!-- sign up form -->
+        <div class="cd-signin-modal__block js-signin-modal-block" data-type="signup" name="signup"> <!-- sign up form -->
           <form class="cd-signin-modal__form" action="JoinCon" method="post">
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-id">ID</label>
@@ -132,15 +132,15 @@
             		  
             		request.setCharacterEncoding("UTF-8");
             		String id = request.getParameter("signup_id");
-
+            		
             		member mid = new member(id);
-
             		memberDAO dao = new memberDAO();
-            		member idselectMember = dao.idselectMember(mid);
+            		member duplicate = dao.idselectMember(mid);
+            		System.out.print(id);
               		 
-              		if(idselectMember==null){
-          			  out.print("사용 불가능한 아이디 입니다.");
-          		  }else{out.print("사용 가능한 아이디 입니다.");}
+              		if(duplicate==null){
+              			out.print("사용 가능한 아이디 입니다.");
+          		  }else{out.print("사용 불가능한 아이디 입니다. 다른 아이디를 입력해 주십시오.");}
             		  
             		  
             		  %>');" 
@@ -202,13 +202,13 @@
 
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="search-username">Username</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-username" name="signup_username" type="text" placeholder="Username">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-username" name="search_username" type="text" placeholder="Username">
               <span class="cd-signin-modal__error">Error message here!</span>
             </p>
             
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="search-email">E-mail</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" name="signup_email" type="email" placeholder="E-mail">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" name="search_email" type="email" placeholder="E-mail">
               <span class="cd-signin-modal__error">Error message here!</span>
             </p>
   
