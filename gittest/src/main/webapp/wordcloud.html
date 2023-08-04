@@ -19,18 +19,15 @@ zingchart.MODULESDIR = 'https://cdn.zingchart.com/modules/';
 		   type: 'wordcloud',
 		   options: {
 		    words: [
-		    	{'text': '러시아', 'count': 67818}, {'text': '미국', 'count': 54097}, {'text': '우크라이나', 'count': 50995}, {'text': '중국', 'count': 45482}, {'text': '한국', 'count': 32331}, {'text': '북한', 'count': 26053}, {'text': '일본', 'count': 19157}, {'text': '물가', 'count': 15308}, {'text': '달러', 'count': 14318}, {'text': '에너지', 'count': 12369}, {'text': '푸틴', 'count': 10809}, {'text': '유럽', 'count': 9868}, {'text': '인도', 'count': 8066}, {'text': '유엔', 'count': 7330}, {'text': '나토', 'count': 7005}, {'text': '독일', 'count': 6676}, {'text': '윤석열', 'count': 6554}, {'text': '영국', 'count': 6323}, {'text': '설명', 'count': 6127}, {'text': '대만', 'count': 5780}, {'text': '원유', 'count': 5751}, {'text': '프랑스', 'count': 5565}, {'text': '유가', 'count': 5282}, {'text': '한미', 'count': 5200}, {'text': '바이든', 'count': 5176}, {'text': '가스', 'count': 5164}, {'text': '곡물', 'count': 5017}, {'text': '반도체', 'count': 4883}, {'text': 'EU', 'count': 4876}, {'text': '금융', 'count': 4288}, {'text': '인권', 'count': 4275}, {'text': '석유', 'count': 4232}, {'text': '안보리', 'count': 3983}, {'text': '젤렌스키', 'count': 3945}, {'text': '원전', 'count': 3877}, {'text': '서울', 'count': 3718}, {'text': '사우디', 'count': 3675}, {'text': '핵무기', 'count': 3656}, {'text': '인플레이션', 'count': 3570}, {'text': '시진핑', 'count': 3449}, {'text': '정상회담', 'count': 3179}, {'text': '환율', 'count': 3150}, {'text': '휘발유', 'count': 3148}, {'text': '아시아', 'count': 3106}, {'text': '이란', 'count': 3093}, {'text': '폴란드', 'count': 3026}, {'text': '천연가스', 'count': 2922}, {'text': '호주', 'count': 2829}, {'text': '기시다', 'count': 2751}, {'text': '태평양', 'count': 2633}],
+		    	{'text': '윤석열', 'count': 1102.1647327278608}, {'text': '한미', 'count': 1101.8468461771956}, {'text': '가스', 'count': 1100.5204091752203}, {'text': '유가', 'count': 1100.3506514689755}, {'text': '원유', 'count': 1099.8504199214337}, {'text': '통신', 'count': 1097.7583122297713}, {'text': '독일', 'count': 1096.6006449931458}, {'text': '금융', 'count': 1095.9169117481265}, {'text': '곡물', 'count': 1093.0440502173751}, {'text': '반도체', 'count': 1091.5380934575885}, {'text': '대만', 'count': 1089.9800820037183}, {'text': '영국', 'count': 1075.104786445409}, {'text': '정상회담', 'count': 1071.1979858312452}, {'text': '밀', 'count': 1070.6787426492897}, {'text': '폴란드', 'count': 1069.092733374709}, {'text': '인플레이션', 'count': 1060.2120097628792}, {'text': '인권', 'count': 1059.290560953213}, {'text': '원전', 'count': 1052.8616066752707}, {'text': '은행', 'count': 1051.5154612406423}, {'text': '석유', 'count': 1049.1106618119245}, {'text': '블라디미르', 'count': 1040.7632195355395}, {'text': '프랑스', 'count': 1040.3845659399544}, {'text': '달러', 'count': 1034.1714258091934}, {'text': '유엔', 'count': 1034.1714258091934}],
 		        minLength: 5,
 		        ignore: [""],
 		        maxItems: 40,
-		        aspect: 'spiral', // 'flow-top' | 'flow-center'
-		     
+		        aspect: 'spiral',
 		        colorType: 'palette',
 		        palette: ['#D32F2F', '#5D4037', '#1976D2', '#E53935', '#6D4C41', '#1E88E5', '#F44336', '#795548', '#2196F3', '#EF5350', '#8D6E63', '#42A5F5'],
-		     
 		        style: {
 		          fontFamily: 'Crete Round',
-		     
 		          hoverState: {
 		            backgroundColor: '#D32F2F',
 		            borderRadius: 2,
@@ -50,10 +47,7 @@ zingchart.MODULESDIR = 'https://cdn.zingchart.com/modules/';
 		          }
 		        }
 		      },
-		     
 		      source: {
-		        //text: '--President Barack Obama<br> Selma 50th anniversary speech<br>March 7, 2015',
-		        //Source: https://obamawhitehouse.archives.gov/the-press-office/2015/03/07/remarks-president-50th-anniversary-selma-montgomery-marches
 		        fontColor: '#64B5F6',
 		        fontSize: 20,
 		        fontFamily: 'Georgia',
@@ -62,7 +56,6 @@ zingchart.MODULESDIR = 'https://cdn.zingchart.com/modules/';
 		      }
 		    };
 
-		   //워드클라우드 렌더링
 		    zingchart.render({
 		      id: 'myChart',
 		      data: myConfig,

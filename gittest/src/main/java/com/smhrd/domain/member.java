@@ -20,6 +20,20 @@ public class member {
 		this.pw = pw;
 	}
 
+
+	public member(String id) {
+		super();
+		this.id = id;
+	}
+
+	public member(String id, String username, String email) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.email = email;
+	}
+	
+
 	public String getId() {
 		return id;
 	}

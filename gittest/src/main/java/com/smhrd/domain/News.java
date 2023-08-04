@@ -8,6 +8,7 @@ public class News {
 	private String NEWS_AT;
 	private String NEWS_PIC;
 	private String NEWS_TAG;
+	private String NEWS_KEYWORD;
 	//생성자
 	public int getNEWS_SEQ() {
 		return NEWS_SEQ;
@@ -50,6 +51,12 @@ public class News {
 	}
 	public void setNEWS_TAG(String nEWS_TAG) {
 		NEWS_TAG = nEWS_TAG;
+	}
+	public String getNEWS_KEYWORD() {
+		return NEWS_KEYWORD;
+	}
+	public void setNEWS_KEYWORD(String nEWS_KEYWORD) {
+		NEWS_KEYWORD = nEWS_KEYWORD;
 	}
 
 }

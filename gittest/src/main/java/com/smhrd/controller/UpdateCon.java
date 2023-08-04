@@ -1,6 +1,8 @@
 package com.smhrd.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +26,8 @@ public class UpdateCon extends HttpServlet {
 		// 1. 파라미터 수집
 		// 1-1. email은 입력받지 않고 session에서 가져와야함
 		HttpSession session = request.getSession();
-		member loginMember = (member)session.getAttribute("loginMember");
+		member loginMember = null;
+		loginMember = (member)session.getAttribute("loginMember");
 		String id = loginMember.getId();
 		// 1-2. 입력받은 pw,tel,address 파라미터 수집
 		String pw = request.getParameter("update_pw");
@@ -32,7 +35,7 @@ public class UpdateCon extends HttpServlet {
 		String email = request.getParameter("update_email");
 		
 		// 2. 받아온 값을 member객체에 묶어 담아주기
-		member update = new member(email, pw, username, email);
+		member update = new member(id, pw, username, email);
 		// 받아온값 확인 --> tostring()
 		System.out.println("update 내용 : "+update.toString());
 		
@@ -46,14 +49,17 @@ public class UpdateCon extends HttpServlet {
 		// 회원정보 수정 성공했으면 main.jsp로
 		// 실패했으면 update.jsp로
 		if(cnt>0) {
-			System.out.println("회원정보 수정 성공~");
+			System.out.println("회원정보 수정 성공");
 			// 회원정보 수정된 내용을 다시 session에 저장
 			// 대신에 이미 저장된 이름으로 덮어쓰기를 해야된다~~
 			session.setAttribute("loginMember", update);
-			response.sendRedirect("index.jsp");
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('회원정보 수정에 성공하였습니다.'); location.href='index.jsp';</script>");
+			out.flush();
 			
 		}else {
-			System.out.println("회원정보 수정 실패ㅠ");
+			System.out.println("회원정보 수정 실패");
 			response.sendRedirect("update.jsp");
 		}
 		
