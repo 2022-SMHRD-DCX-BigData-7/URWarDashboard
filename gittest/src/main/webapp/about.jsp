@@ -375,6 +375,27 @@
 
 
   <!-- about section -->
+  <!-- 뉴스 통계 시작 -->
+	<div style="height: 50px; width: 80%; margin: auto;">
+	    <button id="newsButton" style="width: 33.333%; height: 100%; float: left">월별 기사 수</button>
+	    <button id="keyButton" style="width: 33.333%; height: 100%;">주요 키워드</button>
+	    <button id="wordButton" style="width: 33.333%; height: 100%; float: right">워드클라우드</button>
+	</div>
+	
+	
+	<div id="iframeContainer" style="height: 500px; width: 80%; display: none; margin: auto;">
+	    <iframe id="myIframe" src="news_count.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
+	</div>
+	
+	<div id="iframeContainer2" style="height: 500px; width: 80%; display: none; margin: auto;">
+	    <iframe id="myIframe2" src="keyword_count.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
+	</div>
+	
+	<div id="imgContainer" style="height: 500px; width: 80%; display: none; margin: auto;">
+	    <iframe id="myIframe3" src="wordcloud.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
+	</div>
+  	<!-- 뉴스 통계 끝 -->
+  
 	<div class="container w-75 mt-5 mx-auto">
         <h2>뉴스 목록</h2>
         <hr>
@@ -456,35 +477,11 @@
         </div><%-- /collapse --%>
 </div><%-- /container w-75 mt-5 mx-auto --%>
 
-          <!-- 뉴스 통계 시작 -->
-<div style="height: 50px; width: 80%; margin: auto;">
-    <button id="newsButton" style="width: 33.333%; height: 100%; float: left">월별 기사 수</button>
-    <button id="keyButton" style="width: 33.333%; height: 100%;">주요 키워드</button>
-    <button id="wordButton" style="width: 33.333%; height: 100%; float: right">워드클라우드</button>
-</div>
 
-
-<div id="iframeContainer" style="height: 500px; width: 80%; display: none; margin: auto;">
-    <iframe id="myIframe" src="news_count.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
-</div>
-
-<div id="iframeContainer2" style="height: 500px; width: 80%; display: none; margin: auto;">
-    <iframe id="myIframe2" src="keyword_count.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
-</div>
-
-<div id="imgContainer" style="height: 500px; width: 80%; display: none; margin: auto;">
-    <iframe id="myIframe3" src="wordcloud.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
-</div>
-
-<div id="insightContainer" style="height: 500px; width: 80%;  margin: auto;">
+<div id="insightContainer" style="height:5100px; width: 80%;  margin: auto; margin-top:10px;">
     <iframe id="myIframe4" src="insight.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
 </div>
 
-
-
-
-
-          <!-- 뉴스 통계 끝 -->
   
   <!-- end about section -->
 
