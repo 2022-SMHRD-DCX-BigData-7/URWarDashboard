@@ -75,10 +75,8 @@
                   </button>
                 </form>
               </ul>
-<<<<<<< HEAD
-=======
-              <!--login section -->
->>>>>>> branch 'master' of https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard.git
+ <!--login section -->
+
 <%
 	member loginMember = null;
 	if (session.getAttribute("loginMember") != null) {
@@ -252,10 +250,7 @@
       </div> <!-- cd-signin-modal__container -->
     </div> <!-- cd-signin-modal --> 
 <%};%>
-<<<<<<< HEAD
 <!-- end header section -->
-=======
->>>>>>> branch 'master' of https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard.git
             </div>
           </nav>
         </div>
