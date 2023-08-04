@@ -407,6 +407,8 @@
   <script src="https://huynhhuynh.github.io/owlcarousel2-filter/dist/owlcarousel2-filter.min.js"></script>
   <!-- custom js -->
   <script src="js/custom.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="js/placeholders.min.js"></script>
   
 
 </body>

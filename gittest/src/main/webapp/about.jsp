@@ -14,6 +14,13 @@
 	List<News> newsList = dao.getAll();
 	pageContext.setAttribute("newsList", newsList);
 %>
+<style>
+#wordButton {
+  background-color: #1E90FF;
+  border: none;
+  font-weight: bold;
+}
+</style>
 <head>
   <!-- Basic -->
   
@@ -64,7 +71,7 @@
       <div class="header_bottom">
         <div class="container-fluid">
           <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.jsp">
               <img src="images/logo.png" alt="">
             </a>
             </a>
@@ -381,7 +388,7 @@
 	    <button id="keyButton" style="width: 33.333%; height: 100%;">주요 키워드</button>
 	    <button id="wordButton" style="width: 33.333%; height: 100%; float: right">워드클라우드</button>
 	</div>
-	
+
 	
 	<div id="iframeContainer" style="height: 500px; width: 80%; display: none; margin: auto;">
 	    <iframe id="myIframe" src="news_count.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
