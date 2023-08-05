@@ -1,12 +1,13 @@
 <%@page import="oracle.security.crypto.core.Padding.ID"%>
 <%@page import="com.smhrd.domain.member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="com.smhrd.domain.WebBoard" %>
 <%@ page import="com.smhrd.domain.WebBoardDAO" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Date" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -280,13 +281,15 @@
     <!-- end header section -->
 	</div>
 <%
-    int pageNumber=1;
-	if(request.getParameter("pageNumber")!=null){
-		pageNumber=Integer.parseInt(request.getParameter("pageNumber"));
-	}
+	WebBoardDAO dao = new WebBoardDAO();
+	ArrayList<WebBoard> boardList = dao.getList();
+	pageContext.setAttribute("boardList", boardList);
 %>
 
  <!-- 테이블 -->
+ <div>
+    
+</div>
     <div class = "container">
         <div class="row">
 
@@ -313,29 +316,18 @@
                         <td>작성자</td>
                         <td colspan="2"><%= WebBoard.getID() %></td>
                      </tr>
-                     
-                     <tr>
-						<td>조회수</td>
-						<td colspan="2"><%=WebBoard.getWB_VIEWS() + 1%></td>
-					</tr>
-					
-					<a onclick="return confirm('추천하시겠습니까?')"href="likeAction.jsp?WB_SEQ=%=WB_SEQ%>" class="btn btn-success pull-right">👍</a>
-                     
-                     
+
+
 				</tbody>
             </table>
-            <a href="board.jsp" class="btn btn-primary">목록</a>
-
-            <%
-                if(loginMember != null && loginMember.equals(WebBoard.getID())) { //해당글의 작성자가 본인이라면 수정버튼 보임
-            %>
-                <a href="update.jsp?WB_SEQ=<%= WB_SEQ %>" class="btn btn-primary">수정</a>
-                <a href="deleteAction.jsp?WB_SEQ=<%= WB_SEQ %>" class="btn btn-primary">삭제</a>
-            <%
-                }
-            %>
-				
+            <a href="board.jsp" class="btn btn-primary" style="margin-right: 2px;">목록</a>
+            <button onclick="likePost(${board.WB_SEQ})" class="btn btn-success pull-right" style="margin-right: 2px;">👍</button>
+         <button class="edit-btn" style="margin-right: 2px; color: white; background-color: #007bff; font-size: 11px; border-color: #007bff; border-radius: 2px;" data-wbseq="${board.WB_SEQ}" data-wbtitle="${board.WB_TITLE}" data-wbcontent="${board.WB_CONTENT}">수정</button>
+         <button class="delete-btn" data-wbseq="${board.WB_SEQ}" style="color: white; background-color: #007bff; font-size: 11px; border-radius: 2px; border-color: #007bff">삭제</button>
         </div>
+
+    </div>
+    <div style="text-align: right">
 
     </div>
     
@@ -365,7 +357,85 @@
   <!-- custom js -->
   <script src="js/custom.js"></script>
   <script src="./js/main.js"></script>
-  <script src="js/placeholders.min.js">
+  <script src="js/placeholders.min.js"></script>
+  
+ <!-- 수정 삭제 기능 -->
+  <script>
+  const editButtons = document.querySelectorAll(".edit-btn");
+  const deleteButtons = document.querySelectorAll(".delete-btn");
+  
+  editButtons.forEach(button => {
+      button.addEventListener("click", () => {
+          const wbSeq = button.getAttribute("data-wbseq");
+          const wbTitle = button.getAttribute("data-wbtitle");
+          const wbContent = button.getAttribute("data-wbcontent");
+          
+          const newTitle = prompt("제목을 수정해주세요:", wbTitle);
+          const newContent = prompt("내용을 수정해주세요:", wbContent);
 
+          if (newTitle !== null && newContent !== null) {
+              const form = document.createElement("form");
+              form.method = "POST";
+              form.action = "webboard";
+              const actionInput = document.createElement("input");
+              actionInput.type = "hidden";
+              actionInput.name = "action";
+              actionInput.value = "update";
+              const wbSeqInput = document.createElement("input");
+              wbSeqInput.type = "hidden";
+              wbSeqInput.name = "WB_SEQ";
+              wbSeqInput.value = wbSeq;
+              const wbTitleInput = document.createElement("input");
+              wbTitleInput.type = "hidden";
+              wbTitleInput.name = "WB_TITLE";
+              wbTitleInput.value = newTitle;
+              const wbContentInput = document.createElement("input");
+              wbContentInput.type = "hidden";
+              wbContentInput.name = "WB_CONTENT";
+              wbContentInput.value = newContent;
+              form.appendChild(actionInput);
+              form.appendChild(wbSeqInput);
+              form.appendChild(wbTitleInput);
+              form.appendChild(wbContentInput);
+              document.body.appendChild(form);
+              form.submit();
+          }
+      });
+  });
+  
+  deleteButtons.forEach(button => {
+      button.addEventListener("click", () => {
+          const confirmDelete = confirm("정말 삭제하시겠습니까?");
+          const wbSeq = button.getAttribute("data-wbseq");
+
+          if (confirmDelete) {
+              const form = document.createElement("form");
+              form.method = "POST";
+              form.action = "webboard";
+              const actionInput = document.createElement("input");
+              actionInput.type = "hidden";
+              actionInput.name = "action";
+              actionInput.value = "delete";
+              const wbSeqInput = document.createElement("input");
+              wbSeqInput.type = "hidden";
+              wbSeqInput.name = "WB_SEQ";
+              wbSeqInput.value = wbSeq;
+              form.appendChild(actionInput);
+              form.appendChild(wbSeqInput);
+              document.body.appendChild(form);
+              form.submit();
+          }
+      });
+  });
+</script>
+
+<!-- 좋아요 기능 -->
+<script>
+    function likePost(wbSeq) {
+        if (confirm("추천하시겠습니까?")) {
+            window.location.href = "webboard?action=like&WB_SEQ=" + wbSeq;
+        }
+    }
+</script>
   </body>
 </html>

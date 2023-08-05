@@ -1,2 +1,2 @@
-SELECT * FROM TB_userinfo;
+SELECT * FROM TB_webboard;
 

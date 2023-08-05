@@ -1,13 +1,13 @@
 <%@page import="com.smhrd.domain.memberDAO"%>
 <%@page import="com.smhrd.domain.member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="com.smhrd.domain.WebBoard" %>
 <%@ page import="com.smhrd.domain.WebBoardDAO" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Date" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,6 +95,7 @@
   	}
 %>
 <% if(loginMember==null) {%>
+
 <!--login section -->
 <nav class="cd-main-nav js-main-nav">
 	<ul class="cd-main-nav__list js-signin-modal-trigger">
@@ -510,73 +511,31 @@ function idcheck() {
 
 <!-- board section -->
 
-
-<div class = "container">
-        <div class="row">
-            <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-                <thead>
-                    <tr><!-- 테이블의 행, 한줄 -->
-                        <th style="background-color: #eeeeee; text-align: center;">순번</th>
-                        <th style="background-color: #eeeeee; text-align: center;">제목</th>
-                        <th style="background-color: #eeeeee; text-align: center;">작성내용</th>
-                        <th style="background-color: #eeeeee; text-align: center;">등록일자</th>
-                        <th style="background-color: #eeeeee; text-align: center;">작성자</th>
-                        <th style="background-color: #eeeeee; text-align: center;">좋아요</th>
-                    </tr>
-                </thead>
-                <tbody>
-                	 <%
-                        WebBoardDAO WebBoardDAO = new WebBoardDAO(); //게시글을 뽑아올 수 있도록 인스턴스생성
-                        int cnt = WebBoardDAO.getall();
-                        System.out.print(cnt);
-                        int pageNumber=1;
-                    	if(request.getParameter("pageNumber")!=null){
-                    		pageNumber=Integer.parseInt(request.getParameter("pageNumber"));
-                    	}
-                        ArrayList<WebBoard> list = WebBoardDAO.getList(pageNumber);
-                        for(int i=0; i<list.size(); i++) { // 모든 게시글 불러옴
-                    %>
-                    <tr>
-                        <td><%= list.get(i).getWB_SEQ() %></td>
-                        <td><a href="view.jsp?WB_SEQ=<%= list.get(i).getWB_SEQ() %>"><%= list.get(i).getWB_TITLE() %></a>
-                        </td>
-                        <td><%= list.get(i).getWB_CONTENT() %></td>
-                        <% Date day = list.get(i).getCREATED_AT();
-                        	String day2 = day.toString();
-                        %>
-                         <td><%=day2  %></td> 
-                         <td><%= list.get(i).getID()%></td>
-                        <th style="background-color: #eeeeee; text-align: center;">추천수👍</th> 
-                    </tr>
-                    <%
-                        }
-                    %>
-                </tbody>
-            </table>
-
-            <!-- 페이지 이동 -->
-            <%
-                if(pageNumber != 1) { //현재 페이지가 있는지, 버튼 생성
-            %>
-                <a href = "board.jsp?pageNumber=<%=pageNumber - 1 %>" class="btn btn-success btn-arraw-left"> 
-
-                    이전
-
-                </a>
-            <%
-                } if(WebBoardDAO.nextPage(pageNumber + 1)) { //다음 페이지가 존재하는지
-            %>
-                <a href = "board.jsp?pageNumber=<%=pageNumber + 1 %>" class="btn btn-success btn-arraw-left">
-
-                    다음                
-
-                </a>
-            <% 
-                }
-            %>
-             <a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
-		</div>
+	<%
+		WebBoardDAO dao = new WebBoardDAO();
+		ArrayList<WebBoard> boardList = dao.getList();
+		pageContext.setAttribute("boardList", boardList);
+	%>
+	<div class="container w-75 mt-5 mx-auto">
+        <h2>뉴스 목록</h2>
+        <hr>
+        <ul class="list-group">
+            <c:forEach var="board" items="${boardList}">
+                <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    <a href="webboard?action=view&WB_SEQ=${board.WB_SEQ}" class="text-decoration-none">
+                        ${board.WB_SEQ} | [ ${board.WB_TITLE} ]
+                    </a>
+                    <span class="badge badge-info">작성자: ${board.ID}</span>
+                    <span class="badge badge-light">${board.CREATED_AT}</span>
+                    <span class="badge badge-success">👍: ${board.WB_LIKES}</span>
+                </li>
+            </c:forEach>
+        </ul>
+        <hr>
     </div>
+    <a href="write.jsp" class="btn btn-primary float-right mt-3">글쓰기</a>
+
+
     
 <!-- footer section -->
   <footer class="footer_section">
@@ -605,6 +564,6 @@ function idcheck() {
   <!-- custom js -->
   <script src="js/custom.js"></script>
   <script src="./js/main.js"></script>
-  <script src="js/placeholders.min.js">
+  <script src="js/placeholders.min.js"></script>
 </body>
 </html>

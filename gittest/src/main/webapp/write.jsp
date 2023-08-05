@@ -274,11 +274,11 @@
                     <tbody>
                         <tr><!-- 테이블의 행, 한줄 -->
                             <td>
-                                <input type="text" class="" placeholder="글 제목" name="WB_TITLE" maxlength="600">
+                                <input type="text" class="" placeholder="글 제목" name="WB_TITLE" maxlength="600" style="width:100%">
                             </td>
                         </tr>
                         <tr><!-- 테이블의 행, 한줄 -->
-                            <td><textarea class="" placeholder="글 내용" name="WB_CONTENT" maxlength="4000" style="height: 350px;"></textarea>
+                            <td><textarea placeholder="글 내용" name="WB_CONTENT" maxlength="4000" style="height: 350px; width:100%"></textarea>
                             </td>
                         </tr>
                     </tbody>
