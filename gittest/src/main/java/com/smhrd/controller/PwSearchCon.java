@@ -18,30 +18,30 @@ public class PwSearchCon extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		
-		String id = request.getParameter("search_id");
-		String username = request.getParameter("search_username");
-		String email = request.getParameter("search_email");
-		
-		member search_pw = new member(id,username,email);
-		
-		System.out.println(search_pw.toString());
-		
-		memberDAO dao = new memberDAO();
-		String pwsearch = dao.pwsearchMember(search_pw);
-		
-		if(pwsearch != null) {
-			System.out.println("비밀번호조회 성공");
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('귀하의 비밀번호는 '+pwsearch+'입니다.'); location.href='index.jsp';</script>");
-			out.flush();
-			
-		}else {
-			System.out.println("비밀번호조회 실패");
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('비밀번호 조회에 실패하였습니다. 아이디와 이름, 이메일 주소를 다시 확인하여 주십시오.'); location.href='index.jsp';</script>");
-			out.flush();
+		 String id = request.getParameter("search_id");
+	        String username = request.getParameter("search_username");
+	        String email = request.getParameter("search_email");
+	        
+	        member searchpw = new member(id, username, email);
+	        
+	        System.out.println(searchpw.toString());
+	        
+	        memberDAO dao = new memberDAO();
+	        String pwsearch = dao.pwsearchMember(searchpw);
+	        
+	        if (pwsearch != null) {
+	            System.out.println("비밀번호조회 성공");
+	            response.setContentType("text/html; charset=UTF-8");
+	            PrintWriter out = response.getWriter();
+	            out.println("<script>alert('귀하의 비밀번호는 " + pwsearch + "입니다.'); location.href='index.jsp';</script>");
+	            out.flush();
+	            
+	        } else {
+	            System.out.println("비밀번호조회 실패");
+	            response.setContentType("text/html; charset=UTF-8");
+	            PrintWriter out = response.getWriter();
+	            out.println("<script>alert('비밀번호 조회에 실패하였습니다. 아이디와 이름, 이메일 주소를 다시 확인하여 주십시오.'); location.href='index.jsp';</script>");
+	            out.flush();
 
 		
 	}

@@ -90,6 +90,10 @@
 		});
 	}
 	
+	 
+	
+	
+	
 	//class manipulations - needed if classList is not supported
 	function hasClass(el, className) {
 	  	if (el.classList) return el.classList.contains(className);

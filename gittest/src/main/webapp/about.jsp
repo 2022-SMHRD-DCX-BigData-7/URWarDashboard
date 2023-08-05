@@ -14,6 +14,13 @@
 	List<News> newsList = dao.getAll();
 	pageContext.setAttribute("newsList", newsList);
 %>
+<style>
+#wordButton {
+  background-color: #1E90FF;
+  border: none;
+  font-weight: bold;
+}
+</style>
 <head>
   <!-- Basic -->
   
@@ -64,7 +71,7 @@
       <div class="header_bottom">
         <div class="container-fluid">
           <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.jsp">
               <img src="images/logo.png" alt="">
             </a>
             </a>
@@ -117,53 +124,75 @@
           <li><a href="#0" data-signin="login" data-type="login">로그인</a></li>
           <li><a href="#0" data-signin="signup" data-type="signup">회원가입</a></li>
         </ul>
+       
   <!-- 로그인 -->
+  
         <div class="cd-signin-modal__block js-signin-modal-block" data-type="login"> <!-- log in form -->
-          <form class="cd-signin-modal__form" action="LoginCon" method="post">
+          <form class="cd-signin-modal__form" action="LoginCon" method="post" >
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--id cd-signin-modal__label--image-replace" for="signin-id">ID</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signin-id" name="signin_id" type="text" placeholder="ID">
-              <span class="cd-signin-modal__error">Error message here!</span>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signin-id" name="signin_id" type="text" placeholder="ID" oninput="return validateForm()">
+               <div class="error-message" id="id-error"></div>
             </p>
   
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace" for="signin-password">Password</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signin-password" name="signin_pw" type="text"  placeholder="Password">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signin-password" name="signin_pw" type="text"  placeholder="Password" oninput="return validateForm()">
               <a href="#0" class="cd-signin-modal__hide-password js-hide-password">Hide</a>
-              <span class="cd-signin-modal__error">Error message here!</span>
+               <div class="error-message" id="password-error"></div>
             </p>	
   
             <p class="cd-signin-modal__fieldset">
               <input class="cd-signin-modal__input cd-signin-modal__input--full-width" type="submit" value="로그인">
             </p>
+            
           </form>
           
           <p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="search-id">아이디 / </a><a href="#0" data-signin="search-pw">비밀번호를 잊어버리셨나요?</a></p>
         </div> <!-- cd-signin-modal__block -->
+     <style>
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+</style>
+
+<script>
+  function validateForm() {
+    var id = document.getElementById("signin-id").value.trim();
+    var password = document.getElementById("signin-password").value.trim();
+
+    var idErrorDiv = document.getElementById("id-error");
+    var passwordErrorDiv = document.getElementById("password-error");
+
+    idErrorDiv.innerHTML = ""; // Clear previous error message
+    passwordErrorDiv.innerHTML = ""; // Clear previous error message
+
+    var hasError = false;
+
+    if (id === "") {
+      idErrorDiv.innerHTML = "아이디를 입력하여 주십시오.";
+      hasError = true;
+    }
+
+    if (password === "") {
+      passwordErrorDiv.innerHTML = "비밀번호를 입력하여 주십시오.";
+      hasError = true;
+    }
+
+    return !hasError; // Allow form submission if there are no errors
+  }
+</script>
         
 	<!-- 회원가입 -->
         <div class="cd-signin-modal__block js-signin-modal-block" data-type="signup" name="signup"> <!-- sign up form -->
-          <form class="cd-signin-modal__form" action="JoinCon" method="post">
+          <form class="cd-signin-modal__form" action="JoinCon" method="post" >
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-id">ID</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-id" name="signup_id" type="text" placeholder="ID" >
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-id" name="signup_id" type="text" placeholder="ID"  oninput="return validateForm2()">
               
-              <a href="javascript:alert('<%
-            		  
-            		request.setCharacterEncoding("UTF-8");
-            		String id = request.getParameter("signup_id");
-            		
-            		member mid = new member(id);
-            		memberDAO mdao = new memberDAO();
-            		member duplicate = mdao.idselectMember(mid);
-            		System.out.print(id);
-              		 
-              		if(duplicate==null){
-              			out.print("사용 가능한 아이디 입니다.");
-          		  }else{out.print("사용 불가능한 아이디 입니다. 다른 아이디를 입력해 주십시오.");}
-            		  
-            		  
-            		  %>');" 
+              <a href="#" onclick="idcheck()"
               style="display: inline-block;
     				position: absolute;
     				right: 0;
@@ -179,31 +208,57 @@
 				    color: #343642;"
               >중복확인</a>
               
-              <!-- id check start -->
-         
-             <!-- id check end -->
-              <span class="cd-signin-modal__error">Error message here!</span>
+              <div class="error-message" id="sid-error"></div>
+              
+              <script>
+function idcheck() {
+    var inputElement = document.getElementById("signup-id");
+    var errorElement = document.getElementById("sid-error");
+
+    // 아이디 입력값 가져오기
+    var signup_id = inputElement.value.trim();
+
+    // AJAX를 이용하여 아이디의 사용 가능성을 확인합니다.
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText.trim() === "unavailable") {
+                errorElement.innerHTML = "사용할 수 없는 아이디입니다.";
+                errorElement.style.color = "red";
+            } else {
+                errorElement.innerHTML = "사용할 수 있는 아이디입니다.";
+                errorElement.style.color = "green";
+            }
+        }
+    };
+    
+    // IdCheckCon 서블릿으로 아이디 전송
+    xhttp.open("POST", "IdCheckCon", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("signup_id=" + signup_id);
+}
+</script>
               
             </p>
             
   
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace" for="signup-password">Password</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-password" name="signup_pw" type="text"  placeholder="Password">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-password" name="signup_pw" type="text"  placeholder="Password" oninput="return validateForm2()">
               <a href="#0" class="cd-signin-modal__hide-password js-hide-password">Hide</a>
-              <span class="cd-signin-modal__error">Error message here!</span>
+              <div class="error-message" id="spassword-error"></div>
             </p>
 
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-username">Username</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-username" name="signup_username" type="text" placeholder="Username">
-              <span class="cd-signin-modal__error">Error message here!</span>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-username" name="signup_username" type="text" placeholder="Username" oninput="return validateForm2()">
+              <div class="error-message" id="susername-error"></div>
             </p>
             
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="signup-email">E-mail</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" name="signup_email" type="email" placeholder="E-mail">
-              <span class="cd-signin-modal__error">Error message here!</span>
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" name="signup_email" type="email" placeholder="E-mail" oninput="return validateForm2()">
+              <div class="error-message" id="semail-error"></div>
             </p>
   
   
@@ -212,7 +267,55 @@
             </p>
           </form>
         </div> <!-- cd-signin-modal__block -->
-  
+        <style>
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+</style>
+  <script>
+  function validateForm2() {
+    var sid = document.getElementById("signup-id").value.trim();
+    var spassword = document.getElementById("signup-password").value.trim();
+    var susername = document.getElementById("signup-username").value.trim();
+    var semail = document.getElementById("signup-email").value.trim();
+
+    var sidErrorDiv = document.getElementById("sid-error");
+    var spasswordErrorDiv = document.getElementById("spassword-error");
+    var susernameErrorDiv = document.getElementById("susername-error");
+    var semailErrorDiv = document.getElementById("semail-error");
+
+    sidErrorDiv.innerHTML = ""; // Clear previous error message
+    spasswordErrorDiv.innerHTML = ""; // Clear previous error message
+    susernameErrorDiv.innerHTML = ""; // Clear previous error message
+    semailErrorDiv.innerHTML = ""; // Clear previous error message
+
+    var hasError = false;
+
+    if (sid === "") {
+      sidErrorDiv.innerHTML = "아이디를 입력하여 주십시오.";
+      hasError = true;
+    }
+
+    if (spassword === "") {
+      spasswordErrorDiv.innerHTML = "비밀번호를 입력하여 주십시오.";
+      hasError = true;
+    }
+
+    if (susername === "") {
+      susernameErrorDiv.innerHTML = "이름을 입력하여 주십시오.";
+      hasError = true;
+    }
+
+    if (semail === "") {
+      semailErrorDiv.innerHTML = "이메일 주소를 입력하여 주십시오.";
+      hasError = true;
+    }
+
+    return !hasError; // Allow form submission if there are no errors
+  }
+</script>
   <!-- 아이디 검색  -->
   
         <div class="cd-signin-modal__block js-signin-modal-block" data-type="search-id"> <!-- reset password form -->
@@ -222,13 +325,13 @@
 
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="search-username">Username</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-username" name="search_username" type="text" placeholder="Username">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="search-username" name="search_username" type="text" placeholder="Username">
               <span class="cd-signin-modal__error">Error message here!</span>
             </p>
             
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="search-email">E-mail</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" name="search_email" type="email" placeholder="E-mail">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="search-email" name="search_email" type="email" placeholder="E-mail">
               <span class="cd-signin-modal__error">Error message here!</span>
             </p>
   
@@ -307,7 +410,7 @@
           <form class="cd-signin-modal__form" action="UpdateCon" method="post">
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-id">ID</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-id" name="update_id" type="text" readonly="readonly"
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="update-id" name="update_id" type="text" readonly="readonly"
               placeholder="<%
             String id = loginMember.getId();
             out.print(id); %>" >
@@ -316,25 +419,28 @@
             
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace" for="signup-password">Password</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-password" name="update_pw" type="text"  
-              placeholder="Password">
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="update-password" name="update_pw" type="text"  
+              placeholder="Password" oninput="return validateForm3()">
               <a href="#0" class="cd-signin-modal__hide-password js-hide-password">Hide</a>
+              <div class="error-message" id="upassword-error"></div>
             </p>
 
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace" for="signup-username">Username</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-username" name="update_username" type="text" 
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="update-username" name="update_username" type="text" 
               placeholder="<%
-            String userid = loginMember.getUsername();
-            out.print(userid); %>" >
+            String username = loginMember.getUsername();
+            out.print(username); %>" oninput="return validateForm3()">
+            <div class="error-message" id="uusername-error"></div>
             </p>
             
             <p class="cd-signin-modal__fieldset">
               <label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="signup-email">E-mail</label>
-              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signup-email" name="update_email" type="email" 
+              <input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="update-email" name="update_email" type="email" 
               placeholder="<%
             String email = loginMember.getEmail();
-            out.print(email); %>" >
+            out.print(email); %>"  oninput="return validateForm3()">
+            <div class="error-message" id="uemail-error"></div>
             </p>
   
             <p class="cd-signin-modal__fieldset">
@@ -344,6 +450,49 @@
    <p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="reset">회원탈퇴</a></p>
           
         </div> <!-- cd-signin-modal__block -->
+        
+        <style>
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+</style>
+  <script>
+  function validateForm3() {
+    var upassword = document.getElementById("update-password").value.trim();
+    var uusername = document.getElementById("update-username").value.trim();
+    var uemail = document.getElementById("update-email").value.trim();
+
+    var upasswordErrorDiv = document.getElementById("upassword-error");
+    var uusernameErrorDiv = document.getElementById("uusername-error");
+    var uemailErrorDiv = document.getElementById("uemail-error");
+
+    upasswordErrorDiv.innerHTML = ""; // Clear previous error message
+    uusernameErrorDiv.innerHTML = ""; // Clear previous error message
+    uemailErrorDiv.innerHTML = ""; // Clear previous error message
+
+    var hasError = false;
+
+	
+    if (upassword === "") {
+      upasswordErrorDiv.innerHTML = "비밀번호를 입력하여 주십시오.";
+      hasError = true;
+    }
+
+    if (uusername === "") {
+      uusernameErrorDiv.innerHTML = "이름을 입력하여 주십시오.";
+      hasError = true;
+    }
+
+    if (uemail === "") {
+      uemailErrorDiv.innerHTML = "이메일 주소를 입력하여 주십시오.";
+      hasError = true;
+    }
+
+    return !hasError; // Allow form submission if there are no errors
+  }
+</script>
   
         <div class="cd-signin-modal__block js-signin-modal-block" data-type="reset"> <!-- reset password form -->
           <p class="cd-signin-modal__message">회원 탈퇴를 하시겠습니까? 하단에 해당 회원의 비밀번호를 입력해주세요.</p>
@@ -375,6 +524,27 @@
 
 
   <!-- about section -->
+  <!-- 뉴스 통계 시작 -->
+	<div style="height: 50px; width: 80%; margin: auto;">
+	    <button id="newsButton" style="width: 33.333%; height: 100%; float: left">월별 기사 수</button>
+	    <button id="keyButton" style="width: 33.333%; height: 100%;">주요 키워드</button>
+	    <button id="wordButton" style="width: 33.333%; height: 100%; float: right">워드클라우드</button>
+	</div>
+
+	
+	<div id="iframeContainer" style="height: 500px; width: 80%; display: none; margin: auto;">
+	    <iframe id="myIframe" src="news_count.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
+	</div>
+	
+	<div id="iframeContainer2" style="height: 500px; width: 80%; display: none; margin: auto;">
+	    <iframe id="myIframe2" src="keyword_count.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
+	</div>
+	
+	<div id="imgContainer" style="height: 500px; width: 80%; display: none; margin: auto;">
+	    <iframe id="myIframe3" src="wordcloud.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
+	</div>
+  	<!-- 뉴스 통계 끝 -->
+  
 	<div class="container w-75 mt-5 mx-auto">
         <h2>뉴스 목록</h2>
         <hr>
@@ -456,35 +626,11 @@
         </div><%-- /collapse --%>
 </div><%-- /container w-75 mt-5 mx-auto --%>
 
-          <!-- 뉴스 통계 시작 -->
-<div style="height: 50px; width: 80%; margin: auto;">
-    <button id="newsButton" style="width: 33.333%; height: 100%; float: left">월별 기사 수</button>
-    <button id="keyButton" style="width: 33.333%; height: 100%;">주요 키워드</button>
-    <button id="wordButton" style="width: 33.333%; height: 100%; float: right">워드클라우드</button>
-</div>
 
-
-<div id="iframeContainer" style="height: 500px; width: 80%; display: none; margin: auto;">
-    <iframe id="myIframe" src="news_count.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
-</div>
-
-<div id="iframeContainer2" style="height: 500px; width: 80%; display: none; margin: auto;">
-    <iframe id="myIframe2" src="keyword_count.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
-</div>
-
-<div id="imgContainer" style="height: 500px; width: 80%; display: none; margin: auto;">
-    <iframe id="myIframe3" src="wordcloud.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
-</div>
-
-<div id="insightContainer" style="height: 500px; width: 80%;  margin: auto;">
+<div id="insightContainer" style="height:5100px; width: 80%;  margin: auto; margin-top:10px;">
     <iframe id="myIframe4" src="insight.html" style="width: 100%; height: 100%;" frameborder="0"></iframe>
 </div>
 
-
-
-
-
-          <!-- 뉴스 통계 끝 -->
   
   <!-- end about section -->
 

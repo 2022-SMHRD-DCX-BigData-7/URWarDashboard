@@ -14,9 +14,9 @@
 	 	insert into tb_userinfo values (#{id},#{pw},#{username},#{email})
 	 </insert>
 	 
-	 <select id="idselectMember" parameterType="String"
-	 	resultType="com.smhrd.domain.member">
-	 select id from tb_userinfo where id = #{id}
+	 <select id="idcheckMember" parameterType="String"
+	 	resultType="int">
+	 select count(id)from tb_userinfo where id =#{id}
 	 </select>
 	 
 	 
@@ -39,14 +39,14 @@
 	 	delete tb_userinfo where id=#{id}
 	 </delete>
 	 
-	 <select id="idsearchMember" parameterType="com.smhrd.domain.member"
-	 	resultType="com.smhrd.domain.member">
-	 select id from tb_userinfo where username=#{username} and email=#{email}
-	 </select>
+	  <select id="idsearchMember" parameterType="com.smhrd.domain.idcheck" resultType="String">
+    select id from tb_userinfo where username = #{username} and email = #{email}
+</select>
 	 
 	 <select id="pwsearchMember" parameterType="com.smhrd.domain.member"
-	 	resultType="com.smhrd.domain.member">
+	 	resultType="String">
 	 select pw from tb_userinfo where id=#{id} and username=#{username} and email=#{email}
 	 </select>
 	 
 </mapper>
+

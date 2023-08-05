@@ -66,6 +66,10 @@ function toggleImage() {
     isImageVisible = !isImageVisible;
 }
 
+// 버튼 클릭 시 toggleIframe 함수 호출
+wordButton.addEventListener('click', toggleImage);
+
+
 
 
 

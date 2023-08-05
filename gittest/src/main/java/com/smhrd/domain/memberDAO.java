@@ -36,6 +36,23 @@ public class memberDAO {
 	}// insertMember 메소드 끝
 	
 	
+	//아이디 체크 기능
+		public int idcheckMember(member checkId) {
+			int cnt = 0;
+			try {
+				cnt = sqlSession.selectOne("idcheckMember", checkId);
+				if(cnt==1) {
+					sqlSession.commit();
+				}else {
+					sqlSession.rollback();
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				sqlSession.close();}
+				return cnt;}
+				
+	
 	// 로그인 기능 구현
 	public member selectMember(member login) {
 		member loginMember = null;
@@ -127,17 +144,17 @@ public class memberDAO {
 
 // 비밀번호 조회 기능
 	public String pwsearchMember(member search_pw) {
-		String pwsearchMember = null;
-		
-		try {
-			pwsearchMember = sqlSession.selectOne("search_pw");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			sqlSession.close();
-		}
-		
-		return pwsearchMember;
+        String pwsearchMember = null;
+        
+        try {
+            pwsearchMember = sqlSession.selectOne("pwsearchMember", search_pw);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            sqlSession.close();
+        }
+        
+        return pwsearchMember;
 	}
 
 }
