@@ -517,7 +517,8 @@ function idcheck() {
 		pageContext.setAttribute("boardList", boardList);
 	%>
 	<div class="container w-75 mt-5 mx-auto">
-        <h2>뉴스 목록</h2>
+        <h2>뉴스 목록</h2><br>
+        <a href="write.jsp" class="btn btn-primary float-left mt-3">글쓰기</a>
         <hr>
         <ul class="list-group">
             <c:forEach var="board" items="${boardList}">
@@ -533,7 +534,7 @@ function idcheck() {
         </ul>
         <hr>
     </div>
-    <a href="write.jsp" class="btn btn-primary float-right mt-3">글쓰기</a>
+    
 
 
     
