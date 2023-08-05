@@ -495,7 +495,7 @@ function idcheck() {
     <!-- end header section -->
     
   <!-- mapchart section -->
-	<iframe src="https://public.tableau.com/views/Ukrainewar_16903616032920/sheet5?:language=ko-KR&:display_count=n&:showVizHome=no&:embed=true&:origin=viz_share_link" 
+	<iframe src="https://public.tableau.com/views/_16912175618840/sheet5?:language=ko-KR&:display_count=n&:showVizHome=no&:embed=true&:origin=viz_share_link" 
 	    style="margin-left:2.5%; margin-top:0.5%; width:95%; min-height:650px;"></iframe>
   <!-- end mapchart section -->
 
