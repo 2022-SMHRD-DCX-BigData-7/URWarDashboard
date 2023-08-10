@@ -1,6 +1,5 @@
 # 우크라이나-러시아 전쟁 데이터 시각화 대시보드
 (팀명: 전참시)
-![image](https://user-images.githubusercontent.com/25995055/178401309-2a2ffc86-ef45-439b-bfd8-6978312100bc.png)
 
 
 ## 👀 서비스 소개
@@ -32,22 +31,16 @@
             <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/>
             <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/>
             <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/>
-        </td>
-    </tr>
-    <tr>
-        <td>라이브러리</td>
-        <td>
-            <img src="https://img.shields.io/badge/BootStrap-7952B3?style=for-the-badge&logo=BootStrap&logoColor=white"/>
-            <img src="https://img.shields.io/badge/KakaoMap-FFCD00?style=for-the-badge&logo=Kakao&logoColor=white"/>
+            <img src="https://img.shields.io/badge/python-007396?style=for-the-badge&logo=python&logoColor=white"/>
         </td>
     </tr>
     <tr>
         <td>개발도구</td>
         <td>
             <img src="https://img.shields.io/badge/Eclipse-2C2255?style=for-the-badge&logo=Eclipse&logoColor=white"/>
-            <img src="https://img.shields.io/badge/RaskpberryPi-A22846?style=for-the-badge&logo=RaskpberryPi&logoColor=white"/>
-            <img src="https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white"/>
             <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Jupyter-fa9372?style=for-the-badge&logo=Jupyter&logoColor=white"/>
+            <img src="https://img.shields.io/badge/tableau-6f7bf7?style=for-the-badge&logo=tableau&logoColor=white"/>
         </td>
     </tr>
     <tr>
@@ -59,7 +52,6 @@
     <tr>
         <td>데이터베이스</td>
         <td>
-            <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white"/>
             <img src="https://img.shields.io/badge/Oracle 11g-F80000?style=for-the-badge&logo=Oracle&logoColor=white"/>
         </td>
     </tr>
@@ -74,32 +66,40 @@
 
 
 <br>
-## ⚙ 시스템 아키텍처(구조) 예시 
-![서비스 아키텍처](https://user-images.githubusercontent.com/25995055/169925538-15867bd9-aa0b-42fc-a39b-88981e926e51.png)
+## ⚙ 시스템 아키텍처(구조)
+![image](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085337/225a3dda-efdf-40f6-903e-e2222d961468)
 <br>
 
-## 📌 SW유스케이스
-![image](https://user-images.githubusercontent.com/25995055/178401023-9a015e66-aa6e-4d74-8564-9b1f9d306649.png)
+## 📌 유스케이스
+![image](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085337/3395d10c-55f6-425d-a79d-7bc5c7d76d8f)
 <br>
 
 ## 📌 서비스 흐름도
-![image](https://user-images.githubusercontent.com/25995055/178401048-d6484bda-a2d7-40e1-998b-2bd195cd9f89.png)
+![image](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085337/2cc43280-906c-4035-a333-f174517fe8a2)
 <br>
 
 ## 📌 ER다이어그램
-![image](https://user-images.githubusercontent.com/25995055/169925318-102784c2-893f-4fd7-bec9-a54c44b669d4.png)
+![image](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085337/404348ae-47db-429c-ae2f-5771431078a5)
 <br>
 
 ## 🖥 화면 구성
 
 ### 로그인/회원가입/회원괸리/회원수정/회원탈퇴
-![image](https://user-images.githubusercontent.com/25995055/178401098-95f15a0e-a2de-415e-83d5-883bb4cb0656.png)
+![image](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085337/46df2a1a-d220-4d5d-863f-1264258f3445)
 <br>
 
-### 옷 정보/코디 추천(날씨, 팁, 오늘의 코디, 참고할 수 있는 코디)
-![image](https://user-images.githubusercontent.com/25995055/178401127-287e6de2-4396-49fc-a107-59c4d5cd55c7.png)
+### 맵 대시보드
+![image](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085337/bb15effe-ee01-4e9a-bf86-437ca48d76a2)
 <br>
 
-### 일정/고객센터
-![image](https://user-images.githubusercontent.com/25995055/178401150-861f0e93-0f40-4fae-98c1-2099bf513c8d.png)
+### 차트 대시보드
+![image](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085337/8d45953c-6331-4f62-a7cc-3edd536369ec)
+<br>
+
+### 뉴스
+![image](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085337/dbded334-022c-43d2-a40b-ebb2504d4b65)
+<br>
+
+### 게시판
+![image](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085337/14eed283-46e2-4804-9cf9-86366b1aad92)
 <br>
