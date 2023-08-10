@@ -103,3 +103,35 @@
 ### 게시판
 ![image](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085337/14eed283-46e2-4804-9cf9-86366b1aad92)
 <br>
+
+## 👨‍👩‍👦‍👦 팀원 역할
+<table>
+  <tr>
+    <td align="center"><img src="https://item.kakaocdn.net/do/fd49574de6581aa2a91d82ff6adb6c0115b3f4e3c2033bfd702a321ec6eda72c" width="100" height="100"/></td>
+    <td align="center"><img src="https://mb.ntdtv.kr/assets/uploads/2019/01/Screen-Shot-2019-01-08-at-4.31.55-PM-e1546932545978.png" width="100" height="100"/></td>
+    <td align="center"><img src="https://mblogthumb-phinf.pstatic.net/20160127_177/krazymouse_1453865104404DjQIi_PNG/%C4%AB%C4%AB%BF%C0%C7%C1%B7%BB%C1%EE_%B6%F3%C0%CC%BE%F0.png?type=w2" width="100" height="100"/></td>
+    <td align="center"><img src="https://i.pinimg.com/236x/ed/bb/53/edbb53d4f6dd710431c1140551404af9.jpg" width="100" height="100"/></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>김세진</strong></td>
+    <td align="center"><strong>김종혁</strong></td>
+    <td align="center"><strong>안지웅</strong></td>
+    <td align="center"><strong>최진영</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><b>PM</b></td>
+    <td align="center"><b>Backend</b></td>
+    <td align="center"><b>Frontend</b></td>
+    <td align="center"><b>Database</b></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
+  </tr>
+</table>
+<br>
+## 🤾‍♂️ 트러블슈팅
+개념: 문제 해결을 위해 문제의 원인을 논리적이고 체계적으로 찾는 일이며 제품이나 프로세스의 운영을 재개
+프로젝트 진행하는 동안 발생했던 이슈 중 가장 기억에 남았던 문제와 해결 프로세스 나열(2~5가지 정도)
