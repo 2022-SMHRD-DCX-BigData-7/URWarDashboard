@@ -107,6 +107,11 @@
 ![image](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085337/14eed283-46e2-4804-9cf9-86366b1aad92)
 <br>
 
+## 🎬 시연 영상
+![2023-08-11_Untitled](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085493/36ee0eab-9b36-4291-b5cf-c54ab930222a)
+<br><br>
+![2023-08-11_Untitled_02](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085493/34c0382f-62db-4e4c-9194-9880ba05256b)
+
 ## 👨‍👩‍👦‍👦 팀원 역할
 <table>
   <tr>
