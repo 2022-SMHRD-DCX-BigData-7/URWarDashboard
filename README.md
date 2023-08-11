@@ -14,6 +14,9 @@
 <br>
 
 ## ⭐ 주요 기능
+* 개발 목표: 대시보드를 이용하여 시각적으로 강력하고, 간단해서 종합적인 인사이트를 쉽게 얻을 수 있는 웹 사이트
+<br>
+
 ![전참시(대시보드)_핵심발표](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085493/d0174f92-e5e0-4158-a7f5-e27cab2c2258)
 ![전참시(대시보드)_핵심발표2](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085493/87abc66c-7ac3-40f0-9e3e-48ba8136bf3f)
 
