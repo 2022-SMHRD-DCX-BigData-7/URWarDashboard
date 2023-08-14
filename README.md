@@ -1,5 +1,5 @@
 # 우크라이나-러시아 전쟁 데이터 시각화 대시보드
-(팀명: 전참시)
+팀명: 전참시
 ![스크린샷 2023-08-10 170720](https://github.com/2022-SMHRD-DCX-BigData-7/URWarDashboard/assets/139085493/4a452690-d2f1-46fa-b051-afd531e62bbc)
 
 
